@@ -1,6 +1,9 @@
-# PyGame_samples
-PyGame skeleton.
+# PyGame few workit examples
 
+- IronPython/Python .Net CLR PyGame skeleton.
+- IronPython/Python .Net CLR OpenTK Skeleton.
+- IronPython/Python .Net CLR TaoFramework Skeleton
+- IronPython/Python bare OpenGL Skeleton
 
 ## Requirements
 
@@ -9,20 +12,30 @@ PyGame skeleton.
 - Tao OpenGL Libraries
 - Tao FreeGlut Libary
 
-++ Optional
++ Optional
 
--- Python CLR (?)
--- Python OpenGL (PyOpenGL)
--- OpenTK
--- Nuget (In order to install OpenTK)
+- Python CLR (?)
+- Python OpenGL (PyOpenGL)
+- OpenTK
+- Nuget (In order to install OpenTK)
+
+### Install
+
+- Get IronPython from [https://ironpython.net/download/]
+- Get Tao framework from [https://sourceforge.net/projects/taoframework/files/]
+- Obtain NuGet from Microsoft.
+
 
 ## Usation
 
-- Get Tao framework from [https://sourceforge.net/projects/taoframework/files/]
--- Ran fine with Ipy64 Tao4.py
+- Ran fine with $ipy Tao4.py
+- Ran fine with $ipy Moniker.py
+
 
 ## Examples: Tao4.py
 ![Tao4](https://github.com/fovtran/PyGame_samples/raw/master/Tao4.PNG)
+
+
 
 ## Credits
 
