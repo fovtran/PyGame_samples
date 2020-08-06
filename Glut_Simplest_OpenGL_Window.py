@@ -1,6 +1,8 @@
 import sys, time
-import math
-import numpy
+import math as m
+import numpy as np
+import scipy as sc
+import sympy as sy
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -23,7 +25,7 @@ glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
 
 # Create a window, setting its title
 glutCreateWindow('interactive')
-glutInitWindowSize(600, 600)
+glutInitWindowSize(1200, 600)
 
 # Set the display callback.  You can set other callbacks for keyboard and mouse events.
 glutDisplayFunc(display)

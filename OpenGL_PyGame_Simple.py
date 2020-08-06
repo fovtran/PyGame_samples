@@ -5,19 +5,23 @@ from OpenGL.GLUT import *
 from ctypes import *
 import numpy as np
 
+w = 1200
+h = 600
 pygame.init ()
-screen = pygame.display.set_mode ((800,600), pygame.OPENGL|pygame.DOUBLEBUF, 24)
-glViewport (0, 0, 800, 600)
+screen = pygame.display.set_mode ((w,h), pygame.OPENGL|pygame.DOUBLEBUF, 24)
+glViewport (0, 0, w, h)
+
 glEnable(GL_LIGHTING)
 glEnable(GL_LIGHT0)
 glLightfv(GL_LIGHT0, GL_POSITION, (.2, .2, -5))
 
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
-gluPerspective(45, float(800) / 600, .000001, 75)
+gluPerspective(50, float(w) / h, .000001, 175)
 gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 glMatrixMode(GL_MODELVIEW)
 glLoadIdentity()
+
 glEnable(GL_COLOR_MATERIAL)
 
 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
