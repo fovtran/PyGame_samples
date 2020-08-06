@@ -1,21 +1,30 @@
-import clr
-clr.AddReference("DotNetOpenCL")
-#clr.AddReference("mtrand")
-
+# http://code.enthoplatught.com/.iron/eggs/index.html>>>
 import sys
-# http://code.enthought.com/.iron/eggs/index.html>>>
-#sys.path.append("D:/binr/ironpython 2.7/lib")
 #sys.path.append("D:/binr/ironpython 2.7/lib/site-packages")
-#clr.AddReference("NumpyDotNet")
-#import numpy as np
-#import scipy as sc
+import clr
+#clr.AddReference("./.NuGet/packages/OpenCL.Net.2.2.9.0/lib/net40/OpenCL.Net.dll")
+clr.AddReferenceToFileAndPath("./.NuGet/packages/OpenCL.Net.2.2.9.0/lib/net40/OpenCL.Net.dll")
+import OpenCL.Net as cl
 
+def Vprint(a):
+	a.reverse()
+	for c in a:
+		if not c.startswith("__"):
+			print c
+#print dir(cl)
+#print dir(cl.DeviceType))
+print dir(cl.Platform().__class__)
+#print dir(cl.Device)
+#Vprint(dir(cl.Cl))
+dev = cl.Device()
+plat = cl.Platform()
+platform = cl.Cl.GetPlatformIDs()
+print cl.Cl.GetDeviceIDs(plat, cl.DeviceType.Default)
 
-import DotNetOpenCL as cl
+#plat = cl.DeviceType.GetNames()
+print dir(plat)
 
-all_platforms = cl.clGetPlatformIDs()
-print(all_platforms)
-my_gpu_devices = platform.get_devices(device_type=cl.device_type.CPU)
+my_gpu_devices = plat.get_devices(device_type=cl.DeviceType.Cpu)
 context = cl.Context(devices=my_gpu_devices)
 
 class NaiveTranspose:

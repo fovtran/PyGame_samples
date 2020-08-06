@@ -24,8 +24,8 @@ def our_horizon():
 	for x in X:
 		for y in Y:
 			Gl.glPushMatrix()
-			Gl.glColor3f( 0.1, 0.1, 0.8)
 			Gl.glBegin(Gl.GL_POLYGON)
+			Gl.glColor3f( 0.1, 0.1, 0.8)
 			Gl.glEdgeFlag(True)
 			Gl.glVertex3f(-x+0.2, y+0.8, z)
 			Gl.glVertex3f(-x+0.8, y+0.8, z)
@@ -66,7 +66,7 @@ def on_display():
 	# TODO fix lookAt, doublebuffers, back-front etc
 	lookAt()  ## troubles the doublebuffer
 	#Gl.glDrawBuffer(Gl.GL_BACK)
-	Gl.glColorMaterial(Gl.GL_FRONT, Gl.GL_DIFFUSE)
+	#Gl.glColorMaterial(Gl.GL_FRONT, Gl.GL_DIFFUSE)
 	Gl.glClear(Gl.GL_COLOR_BUFFER_BIT)
 
 	our_horizon()
@@ -74,7 +74,7 @@ def on_display():
 	our_character()
 
 	#Gl.glClear(Gl.GL_DEPTH_BUFFER_BIT)
-	Gl.glDrawBuffer(Gl.GL_FRONT)
+	#Gl.glDrawBuffer(Gl.GL_FRONT)
 	#Gl.glFlush()
 
 	# Push offline renders to the videobuffer

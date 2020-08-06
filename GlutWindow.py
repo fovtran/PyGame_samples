@@ -44,9 +44,10 @@ def init_graphics():
 def on_reshape(w, h):
 	win.screenX=w
 	win.screenY=h
-	#Gl.glLoadIdentity()
 	Gl.glMatrixMode(Gl.GL_PROJECTION)
+	Gl.glLoadIdentity()
 	Gl.glViewport(0, 0, w, h)
 	Glu.gluPerspective(45, float(w) / h, .000001, 275)
 	Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT)
 	Gl.glMatrixMode(Gl.GL_MODELVIEW)
+	Gl.glLoadIdentity()
