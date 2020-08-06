@@ -12,7 +12,7 @@
 - Tao OpenGL Libraries
 - Tao FreeGlut Libary
 
-+ Optional
+= Optional
 
 - Python CLR (?)
 - Python OpenGL (PyOpenGL)
