@@ -11,23 +11,21 @@ glViewport (0, 0, 800, 600)
 glEnable(GL_LIGHTING)
 glEnable(GL_LIGHT0)
 glLightfv(GL_LIGHT0, GL_POSITION, (.2, .2, -5))
-glEnable(GL_COLOR_MATERIAL)
-glClearColor(.3, .1, .3, 1.0)
 
-glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
-glEnableClientState (GL_VERTEX_ARRAY)
-glLoadIdentity()
 glMatrixMode(GL_PROJECTION)
-gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
+glLoadIdentity()
 gluPerspective(45, float(800) / 600, .000001, 75)
-glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 glMatrixMode(GL_MODELVIEW)
+glLoadIdentity()
+glEnable(GL_COLOR_MATERIAL)
 
-vertices = [ 0.0, 1.0, 0.0,  0.0, 0.0, 0.0,  1.0, 1.0, 0.0 ]
-vbo = glGenBuffers (1)
-glBindBuffer (GL_ARRAY_BUFFER, vbo)
-glBufferData (GL_ARRAY_BUFFER, len(vertices)*4, (c_float*len(vertices))(*vertices), GL_STATIC_DRAW)
+glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
+
+glClearColor(.3, .1, .3, 1.0)
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
 
 running = True
 while running:
@@ -35,16 +33,23 @@ while running:
 		if event.type == pygame.QUIT:
 			running = False
 	glDrawBuffer(GL_BACK)
-	glColorMaterial(GL_FRONT, GL_DIFFUSE)
+	glColor (0.0, 1.0, 1.0, 1.0)
 	glClear(GL_COLOR_BUFFER_BIT)
 
+	glEnableClientState (GL_VERTEX_ARRAY)
+	vertices = [ 0.0, 1.0, 0.0,  0.0, 0.0, 0.0,  1.0, 1.0, 0.0 ]
+	vbo = glGenBuffers (1)
 	glBindBuffer (GL_ARRAY_BUFFER, vbo)
-	glColor (0.0, 1.0, 1.0, 1.0)
-	glVertexPointer (3, GL_FLOAT, 0, 0)
+	glBufferData (GL_ARRAY_BUFFER, len(vertices)*4, (c_float*len(vertices))(*vertices), GL_STATIC_DRAW)
+	glVertexPointer (3, GL_FLOAT, 0, None)
+	glPushMatrix()
 	glDrawArrays (GL_TRIANGLES, 0, 3)
-	glClear(GL_DEPTH_BUFFER_BIT)
+	glPopMatrix()
+	glDisableClientState (GL_VERTEX_ARRAY)
+
 	glDrawBuffer(GL_FRONT)
+	glClear(GL_DEPTH_BUFFER_BIT)
+	glColor (0.0, 1.0, 1.0, 1.0)
+
 	glFlush()
 	pygame.display.flip ()
-	glBufferData (GL_ARRAY_BUFFER, len(vertices)*4, np.array (vertices, dtype="float32"),GL_STATIC_DRAW)
-	glVertexPointer (3, GL_FLOAT, 0, None)
