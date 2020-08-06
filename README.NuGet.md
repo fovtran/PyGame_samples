@@ -1,6 +1,5 @@
 # NuGet Quick Guide
 
-
 #### Configuration file NuGet.config Path
 nuget.exe config -set repositoryPath=.\packages -configfile .\.nuget\NuGet.config
 

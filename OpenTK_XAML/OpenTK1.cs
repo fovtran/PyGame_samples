@@ -30,8 +30,6 @@ namespace OpenTkControl {
     private void OpenTkControl_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
       GLControl lControl = OpenTkControl;
 
-      // Reset the depth and color buffer.
-      // We want to render a new world. We do not want to continue with a previous rendering.
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
       // Create a projection matrix transforming camera space to raster space. (google for "view frustum")
@@ -178,7 +176,7 @@ namespace OpenTkControl {
       float lLeft = X - xSideLength / 2f;
       float lRear = Z - (float) (xSideLength * Math.Sqrt(3.0) / 3.0);
       float lFront = Z + (float)(xSideLength * Math.Sqrt(3.0) / 6.0);
- 
+
       GL.Begin(PrimitiveType.Triangles);
 
       Action lPointTop = () => { GL.Color3(xColor); GL.Vertex3(X, lTop, Z); };

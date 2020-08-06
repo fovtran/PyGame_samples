@@ -1,61 +1,27 @@
-from OpenGL.GL import *
-from OpenGL.GL.shaders import *
-
+import sys, time
 import pygame
 from pygame.locals import *
-import numpy, time, sys
-
-def getFileContent(file):
-    content = open(file, 'r').read()
-    return content
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+from OpenGL.GL.shaders import *
+from ctypes import *
+import numpy as np
+from OpenGLShader import *
 
 def init():
+	w = 1200
+	h = 600
     pygame.init()
-    pygame.display.set_mode((640, 480), HWSURFACE | OPENGL | DOUBLEBUF)
-    glViewport(0, 0, 640, 480)
+    pygame.display.set_mode((w,h), HWSURFACE | OPENGL | DOUBLEBUF)
+    glViewport(0, 0, w,h)
 
-    img = pygame.image.load("../girl1.jpg")
-    textureData = pygame.image.tostring(img, "RGB", 1)
-    width = img.get_width()
-    height = img.get_height()
-    #glGenTextures(1)
-    #glBindTexture(GL_TEXTURE_2D, 1)
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-
-    vertices = [-0.5, -0.5,
-                -0.5, 0.5,
-                0.5, 0.5,
-                0.5, -0.5]
-
-    texcoords = [0.0, 0.0,
-                 0.0, 1.0,
-                 1.0, 1.0,
-                 1.0, 0.0]
-
-    vertices = numpy.array(vertices, dtype=numpy.float32)
-    texcoords = numpy.array(texcoords, dtype=numpy.float32)
-
-    vertexShader = compileShader(getFileContent("helloTriangle.vert"), GL_VERTEX_SHADER)
-    fragmentShader = compileShader(getFileContent("helloTriangle.frag"), GL_FRAGMENT_SHADER)
-
-    global shaderProgram
-    shaderProgram = glCreateProgram()
-    glAttachShader(shaderProgram, vertexShader)
-    glAttachShader(shaderProgram, fragmentShader)
-    glLinkProgram(shaderProgram)
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, vertices)
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, texcoords)
-    glEnableVertexAttribArray(0)
-    glEnableVertexAttribArray(1)
-
-    global texLocation
-    texLocation = glGetUniformLocation(shaderProgram, "textureObj")
+	#glGenTextures(1)
+	#glBindTexture(GL_TEXTURE_2D, 1)
 
 def main():
     init()
+	shader()
 
     while 1:
         for event in pygame.event.get():
