@@ -1,6 +1,7 @@
 import clr
-clr.AddReferenceToFile("Tao.OpenGl.dll")
-clr.AddReferenceToFile("Tao.FreeGlut.dll")
+clr.AddReferenceToFile("./libs/Tao.OpenGl.dll")
+clr.AddReferenceToFile("./libs/Tao.FreeGlut.dll")
+
 from System import UInt32, IntPtr
 from ctypes import *
 

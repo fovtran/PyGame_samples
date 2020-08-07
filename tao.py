@@ -1,7 +1,9 @@
 # Copyright (c) 2013 Ashwin Nanjappa
+import sys
+#sys.path.append(r"./LIBS")
 import clr
-clr.AddReferenceToFile("Tao.OpenGl.dll")
-clr.AddReferenceToFile("Tao.FreeGlut.dll")
+clr.AddReferenceToFile("./libs/Tao.OpenGl.dll")
+clr.AddReferenceToFile("./libs/Tao.FreeGlut.dll")
 
 import Tao.OpenGl.Gl as Gl
 import Tao.OpenGl.Glu as Glu

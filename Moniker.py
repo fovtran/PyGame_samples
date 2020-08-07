@@ -2,8 +2,9 @@ import sys
 sys.path.append(r"C:\Users\Diego2\Desktop\CORE_COMPILAR\MyTao")
 
 import clr
-clr.AddReference("Tao.OpenGl.dll")
-clr.AddReference("Tao.FreeGlut.dll")
+clr.AddReferenceToFile("./libs/Tao.OpenGl.dll")
+clr.AddReferenceToFile("./libs/Tao.FreeGlut.dll")
+
 from System import UInt32, IntPtr
 from ctypes import *
 
