@@ -12,7 +12,7 @@ import Tao.OpenGl.Glu as Glu
 import Tao.FreeGlut.Glut as Glut
 
 from math import cos,sin,pi
-from NP import *
+from NP2Interface.NP import *
 from GlutControls import *
 from GlutWindow import *
 from GlutSharedData import *

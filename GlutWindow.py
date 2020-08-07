@@ -11,7 +11,7 @@ import Tao.OpenGl.Glu as Glu
 import Tao.FreeGlut.Glut as Glut
 
 from math import cos,sin,pi
-from NP import *
+from NP2Interface.NP import *
 from GlutControls import *
 from GlutSharedData import *
 
@@ -35,7 +35,7 @@ def init_graphics():
 	Gl.glEnable(Gl.GL_LIGHTING)
 	Gl.glEnable(Gl.GL_LIGHT0)
 	Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, (.2, .2, -5))
-	
+
 	Gl.glEnable(Gl.GL_COLOR_MATERIAL)
 	Gl.glClearColor(.3, .1, .3, 1.0)
 	Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE)

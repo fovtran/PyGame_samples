@@ -1,7 +1,7 @@
 from System import UInt32, IntPtr
 from ctypes import *
 from math import cos,sin,pi
-from NP import *
+from NP2Interface.NP import *
 from GlutControls import *
 
 class window():

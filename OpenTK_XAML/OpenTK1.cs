@@ -34,7 +34,6 @@ namespace OpenTkControl {
 
       // Create a projection matrix transforming camera space to raster space. (google for "view frustum")
       // Which is like: Press the 3D world and make it flat like a pancake, so that it does fit on the 2D screen.
-      //                All points between a distance of 1 and 1000 will be taken into account.
       float lAngleView = 1.2f;              // y direction (in radians)
       float lAspectRatio = 4f / 3f;         // width / height
       float lDistanceToNearClipPlane = 1f;

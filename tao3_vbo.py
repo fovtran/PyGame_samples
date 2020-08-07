@@ -16,6 +16,7 @@ def init_graphics():
 	Gl.glEnable(Gl.GL_COLOR_MATERIAL)
 	Gl.glClearColor(.3, .1, .3, 1.0)
 	Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE)
+	Gl.glHint(Gl.GL_LINE_SMOOTH_HINT, Gl.GL_NICEST)
 
 def on_display():
 	Gl.glLoadIdentity()
@@ -26,13 +27,15 @@ def on_display():
 	Gl.glClear(Gl.GL_COLOR_BUFFER_BIT)
 
 	Gl.glEnableClientState (Gl.GL_VERTEX_ARRAY)
-	v = [ 0.0, 1.0, 0.0,  0.0, 0.0, 0.0,  1.0, 1.0, 0.0 ]
-	v = clr.StrongBox[UInt32](3)
-	vbo = Gl.glGenBuffers(UInt32(1), v)
-	#Gl.glBindBufferARB(Gl.GL_ARRAY_BUFFER, vbo.count);
-	Gl.glBufferData(Gl.GL_ARRAY_BUFFER, len(vbo)*4, (c_float*len(vbo))(*vbo), Gl.GL_STATIC_DRAW)
-	#Gl.glBufferDataARB(Gl.GL_ARRAY_BUFFER_ARB, (IntPtr)(len(vbo) * 3.0 ), vbo, Gl.GL_STATIC_DRAW_ARB);
-	#Gl.glDrawArrays(Gl.GL_QUADS, 0, VBOObject.count/2);
+	vertices = [ 0.0, 1.0, 0.0,  0.0, 0.0, 0.0,  1.0, 1.0, 0.0 ]
+	vbo = Gl.glGenBuffers (1)
+	Gl.glBindBuffer (Gl.GL_ARRAY_BUFFER, vbo)
+	Gl.glBufferData (Gl.GL_ARRAY_BUFFER, len(vertices)*4, (c_float*len(vertices))(*vertices), Gl.GL_STATIC_DRAW)
+	Gl.glVertexPointer (3, Gl.GL_FLOAT, 0, None)
+	Gl.glPushMatrix()
+	Gl.glDrawArrays (Gl.GL_TRIANGLES, 0, 3)
+	Gl.glPopMatrix()
+	Gl.glDisableClientState (Gl.GL_VERTEX_ARRAY)
 
 	Gl.glPushMatrix()
 	Gl.glBegin(Gl.GL_POLYGON)
@@ -62,10 +65,8 @@ def on_reshape(w, h):
 def main():
 	Glut.glutInit()
 	Glut.glutInitDisplayMode(Glut.GLUT_DOUBLE | Glut.GLUT_RGBA)
-	Glut.glutInitWindowSize(500, 500)
+	Glut.glutInitWindowSize(1200, 600)
 	Glut.glutCreateWindow("Tao Example")
-	#a = Gl.glGetString(Gl.GL_EXTENSIONS)
-	#for x in a.split():    print(x)
 	init_graphics()
 	Glut.glutDisplayFunc(on_display)
 	Glut.glutReshapeFunc(on_reshape)

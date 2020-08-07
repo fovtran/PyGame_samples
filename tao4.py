@@ -13,6 +13,8 @@ def init_graphics():
 	Gl.glEnable(Gl.GL_LIGHTING)
 	Gl.glEnable(Gl.GL_LIGHT0)
 	Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, (.2, .2, -5))
+	Gl.glHint(Gl.GL_LINE_SMOOTH_HINT, Gl.GL_NICEST)
+
 
 def on_display():
 	Gl.glLoadIdentity()
