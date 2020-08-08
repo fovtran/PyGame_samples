@@ -22,24 +22,17 @@ const double c=PI/180.0;
 
 static void RenderSceneCB()
 {
-     glClear(GL_COLOR_BUFFER_BIT);
-
+	glClear(GL_COLOR_BUFFER_BIT);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
     glDrawElements(GL_TRIANGLES, 300, GL_UNSIGNED_INT, 0);
-
-    glDisableVertexAttribArray(0);
-
+	glDisableVertexAttribArray(0);
     glutSwapBuffers();
 }
 
 
-static void InitializeGlutCallbacks()
-{
-    glutDisplayFunc(RenderSceneCB);
-}
+static void InitializeGlutCallbacks() { glutDisplayFunc(RenderSceneCB); }
 
 static void CreateVertexBuffer()
 {
@@ -60,7 +53,6 @@ static void CreateVertexBuffer()
 
 static void CreateIndexBuffer()
 {
-
     unsigned int indices[300];
     indices[299] = 0;
     for(int i=0;i<299;i++){
@@ -84,7 +76,6 @@ int main(int argc, char** argv)
     glutInitWindowSize(1024, 768);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Tutorial 02");
-
     InitializeGlutCallbacks();
 
     GLenum res = glewInit();
@@ -94,7 +85,6 @@ int main(int argc, char** argv)
     }
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
     CreateVertexBuffer();
     CreateIndexBuffer();
     glutMainLoop();

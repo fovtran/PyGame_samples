@@ -3,15 +3,8 @@
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 3) out;
 
-in Data
-{
-    vec4 position;
-} vdata[3];
-
-out Data
-{
-    noperspective out vec3 dist;
-} gdata;
+in Data  { vec4 position; } vdata[3];
+out Data  { noperspective out vec3 dist; } gdata;
 
 void main()
 {

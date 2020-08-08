@@ -19,9 +19,8 @@ from OpenGL.GL import (GL_ARRAY_BUFFER, GL_COLOR_BUFFER_BIT,
     glShaderSource, glUseProgram, glVertexAttribPointer)
 import sys
 
-
 vertex = """
-#version 330
+#version 120
 in vec3 vin_position;
 in vec3 vin_color;
 out vec3 vout_color;
@@ -35,7 +34,7 @@ void main(void)
 
 
 fragment = """
-#version 330
+#version 120
 in vec3 vout_color;
 out vec4 fout_color;
 
@@ -252,5 +251,5 @@ if __name__ == "__main__":
         SwapBuffers()
 
         # If the user has closed the window in anger
-        # then terminate this program
+        # th	en terminate this program
         running = running and GetWindowParam(OPENED)

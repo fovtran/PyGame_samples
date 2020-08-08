@@ -1,4 +1,24 @@
+#include <stdio.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+#include <math.h>
 
+static struct Vector3f{
+    float x;
+    float y;
+    float z;
+    Vector3f(){}
+    Vector3f(float x_, float y_, float z_){
+        x = x_;
+        y = y_;
+        z = z_;
+    }
+};
+
+GLuint VBO;
+GLuint IBO;
+const double PI = 3.14159265358979323846;
+const double c=PI/180.0;
 
 void render(void);
 void keyboard(int key, int x, int y);

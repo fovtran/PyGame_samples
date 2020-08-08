@@ -6,10 +6,11 @@ import ctypes
 import struct
 from typing import Any
 from OpenGL.GL import *
+from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 VS = '''
-#version 330
+#version 120
 in vec2 aPosition;
 void main ()
 {
@@ -18,7 +19,7 @@ void main ()
 '''
 
 FS = '''
-#version 330
+#version 120
 out vec4 FragColor;
 void main()
 {
@@ -182,7 +183,7 @@ class Triangle:
 
 
 def main():
-    #glutInit(sys.argv)
+    #glutInit()
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
     # glutInitContextVersion(3, 3) # this call cause an error when glVertexAttribPointer
     glutInitContextFlags(GLUT_CORE_PROFILE | GLUT_DEBUG)

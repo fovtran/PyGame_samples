@@ -1,21 +1,3 @@
-'''
-http://pyopengl.sourceforge.net/context/tutorials/shader_1.html
-
-you use glVertexPointer to point at your data in teh VBO. you gotta bind your
-VBO data into the gpu
-
-glDrawArrays used to draw vertices. the vertex shader plugs in the points the
-fragment shader colors fragments between the points
-
-vertex shader needs to return gl_Position fragment shader needs to return
-gl_FragColor
-
-gl_ModelViewProjectionMatrix just says to multiply our vertices by whatever
-numbers to get the viewpoint right given our vertices in the vbo
-
-you can only draw vertices / triangles with GL_TRIANGLES
-'''
-
 # this is for creating a window
 from OpenGLContext import testingcontext
 BaseContext = testingcontext.getInteractive()
