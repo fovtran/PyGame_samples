@@ -12,28 +12,30 @@ from OpenGLShader import *
 def init():
 	w = 1200
 	h = 600
-    pygame.init()
-    pygame.display.set_mode((w,h), HWSURFACE | OPENGL | DOUBLEBUF)
-    glViewport(0, 0, w,h)
-
-	#glGenTextures(1)
-	#glBindTexture(GL_TEXTURE_2D, 1)
+	pygame.init()
+	pygame.display.set_mode((w,h), HWSURFACE | OPENGL | DOUBLEBUF)
+	glViewport(0, 0, w,h)
 
 def main():
-    init()
-	shader()
+	init()
+	shaderProgram = shader()
 
-    while 1:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
+	while 1:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT: sys.exit()
 
-        glClearColor(0.25, 0.25, 0.25, 1)
-        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+		glClearColor(0.25, 0.25, 0.25, 1)
+		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 
-        glUseProgram(shaderProgram)
-        #glUniform1i(texLocation, 0)
-        glDrawArrays(GL_QUADS, 0, 4)
+		glEnableClientState(GL_VERTEX_ARRAY)
+		glPushMatrix()
+		glUseProgram(shaderProgram)
+		#glUniform1i(texLocation, 0)
+		glDrawArrays(GL_QUADS, 0, 4)
+		glPopMatrix()
+		glDisableClientState(GL_VERTEX_ARRAY)
+		glUseProgram(0)
 
-        pygame.display.flip()
+		pygame.display.flip()
 
 main()

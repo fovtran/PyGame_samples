@@ -1,12 +1,7 @@
 #version 120
 
-in Data
-{
-    noperspective in vec3 dist;
-} gdata;
-
+in Data { noperspective in vec3 dist; } gdata;
 out vec4 outputColor;
-
 uniform sampler2D tex;
 
 const vec4 wireframeColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
