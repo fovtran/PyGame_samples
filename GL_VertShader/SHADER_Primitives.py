@@ -8,38 +8,14 @@ from OpenGL.GLUT import *
 from OpenGL.GL.shaders import *
 from ctypes import *
 import numpy as np
+import glm
 import random
 import array
 
-class Texture( object ):
-        """Texture either loaded from a file or initialised with random colors."""
-        def __init__( self ):
-                self.xSize, self.ySize = 0, 0
-                self.rawRefence = None
+from VBO_Primitives import *
+from IMAGE_Primitives import *
 
-class RandomTexture( Texture ):
-        """Image with random RGB values."""
-        def __init__( self, xSizeP, ySizeP ):
-                self.xSize, self.ySize = xSizeP, ySizeP
-                tmpList = [ random.randint(0, 255) \
-                        for i in range( 3 * self.xSize * self.ySize ) ]
-                self.textureArray = array.array( 'B', tmpList )
-                self.rawReference = self.textureArray.tostring( )
-
-class FileTexture( Texture ):
-        """Texture loaded from a file."""
-        def __init__( self, fileName ):
-                im = Image.open( fileName )
-                self.xSize = im.size[0]
-                self.ySize = im.size[1]
-                self.rawReference = im.tostring("raw", "RGB", 0, -1)
-
-def getFileContent(file):
-	content = open(file, 'r').read()
-	return content
-
-def shader():
-	global shaderProgram
+def getShader():
 	shaderProgram = glCreateProgram()
 
 	try:
@@ -53,10 +29,11 @@ def shader():
 		print(e.args[0])
 		for a in str(e.args[1]).split(r'\n'):
 			print(a)
+			pass
 
-	# ----------------------------------------------------
+	return shaderProgram
 
-	fileName = "../girl1.jpg"
+def getTexture(fileName):
 	img = pygame.image.load(fileName)
 	#img = Image.open(filename)
 	#img_data = numpy.array(list(img.getdata()), numpy.int8)
@@ -71,24 +48,29 @@ def shader():
 		#texture = RandomTexture( 256, 256 )
 		texture = textureData
 
+	return texture, width, height
+
+def BindTexture(texture, width, height):
 	glGenTextures(1)
 	glBindTexture(GL_TEXTURE_2D, 1)
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
 
 	#glTexImage2D( GL_TEXTURE_2D, 0, 3, texture.xSize, texture.ySize, 0, GL_RGB, GL_UNSIGNED_BYTE, texture.rawReference )
-	glTexImage2D( GL_TEXTURE_2D, 0, 3, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture )
 
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
+	#glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
+	#glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT )
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT )
-	#glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-	#glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+	#glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+	#glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+	#glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
+	glTexImage2D( GL_TEXTURE_2D, 0, 3, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture )
 	glGenerateMipmap(GL_TEXTURE_2D)
 
+
+def VertexAttributes(shaderProgram):
 	vertices = [-0.5, -0.5,
 	            -0.5, 0.5,
 	            0.5, 0.5,
@@ -107,11 +89,8 @@ def shader():
 	glEnableVertexAttribArray(0)
 	glEnableVertexAttribArray(1)
 
+def getTextureLoc(shaderProgram, x):
 	glUseProgram(shaderProgram)
-	r = glGetProgramInfoLog(shaderProgram)
-	print(r)
-
-	global texLocation
-	texloc = glGetUniformLocation(shaderProgram, "tex")
+	texloc = glGetUniformLocation(shaderProgram, x)
 	print(texloc)
-	return shaderProgram, texloc
+	return texloc

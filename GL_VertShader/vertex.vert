@@ -1,16 +1,15 @@
-#version 120
+#version 130
 
-in vec3 position;
-in vec3 color;
+in vec2 position;
 in vec2 InTexCoords;
 
-out vec3 newColor;
-out vec2 OutTexCoords;
+varying vec2 vTexCoord;
 
-uniform mat4 transform;
+// uniform mat4 transform;
 
 void main() {
-	gl_Position = transform * vec4(position, 1.0f);
-	newColor = color;
-	OutTexCoords = InTexCoords;
+	//gl_Position = transform * vec4(position, 1.0f);
+	vTexCoord = gl_MultiTexCoord0;
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+	//OutTexCoords = InTexCoords;
 }
