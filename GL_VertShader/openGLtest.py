@@ -26,7 +26,7 @@ def init():
 	glDisable(GL_DEPTH_TEST)
 	glDisable(GL_CULL_FACE)
 
-	lightZeroPosition = [10., 4., 10., 1.]
+	lightZeroPosition = [0., -4., 10., 1.]
 	lightZeroColor = [0.9, 1.0, 0.9, 1.0]
 	glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition)
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightZeroColor)
@@ -36,19 +36,19 @@ def init():
 
 	glEnable(GL_COLOR_MATERIAL)
 	glEnable( GL_TEXTURE_2D )
-	glEnable(GL_MULTISAMPLE)
-	glEnable(GL_NORMALIZE)
+	#glEnable(GL_MULTISAMPLE)
+	#glEnable(GL_NORMALIZE)
 	glEnable(GL_POINT_SMOOTH)
 	glEnable(GL_LINE_SMOOTH)
 	glEnable(GL_POLYGON_SMOOTH)
 	glEnable(GL_POLYGON_OFFSET_FILL)
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+	#glEnable(GL_BLEND);
+	#glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 	glShadeModel( GL_SMOOTH )
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 	glLineWidth(1.0)
 
 	glMatrixMode(GL_PROJECTION)
@@ -62,27 +62,31 @@ def init():
 def main():
 	init()
 	f = "../girl1.jpg"
+	global shaderProgram
 	shaderProgram = getShader()
-	r = glGetProgramInfoLog(shaderProgram)
-	print(r)
 	t, w, h = getTexture(f)
 	BindTexture(t, w, h)
 	glUseProgram(shaderProgram)
 	VertexAttributes(shaderProgram)
-	tex = getTextureLoc(shaderProgram, 'tex')
-
+	#tex = getTextureLoc(shaderProgram, 'tex')
+	clock = pygame.time.Clock()
 
 	while 1:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT: sys.exit()
+			if event.type == pygame.KEYUP:
+				sys.exit()
+			if event.type == pygame.K_ESCAPE:
+				sys.exit()
 
 		glClearColor(0.0, 0.3, 0.0, 1)
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 		glDrawBuffer(GL_BACK)
 
 		#drawCube()
-		VBO(tex)
+		glUseProgram(shaderProgram)
 		NormalMapping()
+		VBO(1)
 		glUseProgram(0)
 
 		pygame.display.flip()

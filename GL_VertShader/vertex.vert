@@ -1,15 +1,13 @@
 #version 130
 
 in vec2 position;
-in vec2 InTexCoords;
-
-varying vec2 vTexCoord;
-
-// uniform mat4 transform;
+varying vec4 vTexCoord;
+// in vec2 InTexCoords;
+//uniform mat4 transform;
 
 void main() {
-	//gl_Position = transform * vec4(position, 1.0f);
-	vTexCoord = gl_MultiTexCoord0;
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	//OutTexCoords = InTexCoords;
+	//vec4 vTexCoord = gl_MultiTexCoord0;
+	//gl_Position = vTexCoord * vec4(position, 1.0f);
+	//gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+	gl_Position = vTexCoord;
 }
