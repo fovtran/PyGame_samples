@@ -1,0 +1,2 @@
+import collada
+cimport sys
