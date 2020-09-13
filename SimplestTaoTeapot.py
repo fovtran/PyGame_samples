@@ -18,7 +18,8 @@ def init_graphics():
 def on_display():
     Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT)
     Gl.glLoadIdentity()
-    Glu.gluLookAt(0, 0, 5, 0, 0, 1, 0, 1, 0)
+    # gluLooAt eyeX, eyeY, eyeZ, (center), direction
+    Glu.gluLookAt(0, 2, 5, 0, 0, 0, 0, 1, 0)
     Glut.glutSolidTeapot(1)
     Glut.glutSwapBuffers()
 
