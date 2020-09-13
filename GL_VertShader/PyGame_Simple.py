@@ -6,7 +6,7 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from OpenGL.GL.shaders import *
 from ctypes import *
-from OpenGLShader import *
+#from OpenGLShader import *
 import numpy as np
 
 w = 1200
@@ -50,6 +50,7 @@ def VBO():
 	glDisableClientState (GL_VERTEX_ARRAY)
 
 running = True
+pygame_init()
 while running:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -63,7 +64,6 @@ while running:
 	VBO()
 
 	glDrawBuffer(GL_FRONT)
-
 	glClear(GL_DEPTH_BUFFER_BIT)
 	glColor (0.0, 1.0, 1.0, 1.0)
 

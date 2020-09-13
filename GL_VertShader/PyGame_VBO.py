@@ -61,12 +61,12 @@ def init():
 
 def main():
 	init()
-	f = "../girl1.jpg"
+	f = "../media/girl1.jpg"
 	global shaderProgram
 	shaderProgram = getShader()
 	t, w, h = getTexture(f)
 	BindTexture(t, w, h)
-	glUseProgram(shaderProgram)
+	#glUseProgram(shaderProgram)
 	VertexAttributes(shaderProgram)
 	#tex = getTextureLoc(shaderProgram, 'tex')
 	clock = pygame.time.Clock()
@@ -84,7 +84,7 @@ def main():
 		glDrawBuffer(GL_BACK)
 
 		#drawCube()
-		glUseProgram(shaderProgram)
+		#glUseProgram(shaderProgram)
 		NormalMapping()
 		VBO(1)
 		glUseProgram(0)
