@@ -48,17 +48,7 @@ def createDAEFromShape(self, s, layer_num, mesh, thickness): #TODO Move this met
     triset.generateNormals()
     geom.primitives.append(triset)
     return geom
-Apparently you can actually compute it without normals, but the documentation was not clear.
-
-share  improve this answer  follow
-edited Mar 26 '16 at 23:53
-answered Mar 26 '16 at 23:41
-
-Skylion
-2,5232121 silver badges4040 bronze badges
-Where is layerdef defined in self for this line layerdef = self.layerdef. Also could you add some comments on what the above above code is doing? :) – Vivek Bagaria Apr 19 at 5:06
-add a comment
-Your Answer
+    
 #Allows the laminate to get exported as a DAE.
 def toDAE(self):
     """

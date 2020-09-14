@@ -36,7 +36,7 @@ def init():
 
 	glEnable(GL_COLOR_MATERIAL)
 	glEnable( GL_TEXTURE_2D )
-	#glEnable(GL_MULTISAMPLE)
+	glEnable(GL_MULTISAMPLE)
 	#glEnable(GL_NORMALIZE)
 	glEnable(GL_POINT_SMOOTH)
 	glEnable(GL_LINE_SMOOTH)
@@ -61,7 +61,7 @@ def init():
 
 def main():
 	init()
-	f = "../media/girl1.jpg"
+	f = "../media/checkers12.jpg"
 	global shaderProgram
 	shaderProgram = getShader()
 	t, w, h = getTexture(f)

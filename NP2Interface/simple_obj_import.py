@@ -2,7 +2,7 @@
 # File import_simple_obj.py
 # Simple obj importer which reads only verts, faces, and texture verts
 #----------------------------------------------------------
-import bpy, os
+import os
 
 def import_simple_obj(filepath, rot90, scale):
     name = os.path.basename(filepath)
@@ -14,6 +14,7 @@ def import_simple_obj(filepath, rot90, scale):
     faces = []
     texverts = []
     texfaces = []
+    uvtex = {}
 
     for line in fp:
         words = line.split()
@@ -37,29 +38,18 @@ def import_simple_obj(filepath, rot90, scale):
     print('%s successfully imported' % realpath)
     fp.close()
 
-    me = bpy.data.meshes.new(name)
-    me.from_pydata(verts, [], faces)
-    me.update()
-
     if texverts:
-        uvtex = me.uv_textures.new()
-        uvtex.name = name
-        data = uvtex.data
+        uvtex[name] = [None,None,None,None]
         for n in range(len(texfaces)):
             tf = texfaces[n]
-            data[n].uv1 = texverts[tf[0]]
-            data[n].uv2 = texverts[tf[1]]
-            data[n].uv3 = texverts[tf[2]]
+            uvtex[name][0] = texverts[tf[0]]
+            uvtex[name][1] = texverts[tf[1]]
+            uvtex[name][2] = texverts[tf[2]]
             if len(tf) == 4:
-                data[n].uv4 = texverts[tf[3]]
+                uvtex[3] = texverts[tf[3]]
 
-    scn = bpy.context.scene
-    ob = bpy.data.objects.new(name, me)
-    scn.objects.link(ob)
-    scn.objects.active = ob
+    return verts, faces, texverts, texfaces, uvtex
 
-    return
-    
 def parseFace(words):
     face = []
     texface = []

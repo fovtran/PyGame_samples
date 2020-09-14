@@ -8,9 +8,10 @@ from ctypes import *
 import Tao.OpenGl.Gl as Gl
 import Tao.OpenGl.Glu as Glu
 import Tao.FreeGlut.Glut as Glut
-
+from NP2Interface.simple_obj_import import *
 
 def pusher():
+
 
 	Gl.glLineWidth(1.0)
 	Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL)
@@ -28,8 +29,9 @@ def pusher():
 	Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, mat_specular)
 	Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SHININESS, mat_shininess)
 	Gl.glDisable(Gl.GL_COLOR_MATERIAL)
-	lDList = Gl.glGenLists(1)
-	Gl.glNewList(lDList, Gl.GL_COMPILE)
+
+	OBJ = Gl.glGenLists(3)
+	Gl.glNewList(OBJ, Gl.GL_COMPILE)
 	Gl.glBegin(Gl.GL_QUADS)
 	yellow()
 	Gl.glVertex3i(-1, -1, 0)
@@ -38,13 +40,23 @@ def pusher():
 	Gl.glVertex3i(-1, -1, -2)
 	Gl.glEnd()
 	Gl.glEndList()
+
+	verts, faces, texverts, texfaces, uvtex = import_simple_obj('media/column2/column2.obj', 0, 1)
+	Gl.glNewList(OBJ+1, Gl.GL_COMPILE)
+	Gl.glBegin(Gl.GL_TRIANGLES)
+	green()
+	for v in verts:
+		Gl.glVertex3f(v[0], v[1], v[2])
+	Gl.glEnd()
+	Gl.glEndList()
+
 	Gl.glPushMatrix()
-	Gl.glLineWidth(10)
+	Gl.glLineWidth(1)
 	Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINES)
-	Gl.glColor3f(0, 0, 0)
-	Gl.glCallList(lDList)
-	Gl.glCallList(lDList);
+	#Gl.glColor3f(0, 0, 0)
+	#Gl.glCallList(OBJ)
 	Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL)
+	Gl.glCallList(OBJ+1);
 	Gl.glPopMatrix()
 
 def green():

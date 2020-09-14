@@ -21,7 +21,7 @@ def VBO(tex):
 	#glColor3f( 1, 0, 0 )
 	glEnableClientState(GL_VERTEX_ARRAY)
 	glPushMatrix()
-	glDrawArrays(GL_QUADS, 0, 4)
+	glDrawArrays(GL_QUADS, 0, 7)
 	glPopMatrix()
 	glDisableClientState(GL_VERTEX_ARRAY)
 
