@@ -30,7 +30,7 @@ def pygame_init():
 
 	glMatrixMode(GL_PROJECTION)
 	glLoadIdentity()
-	gluPerspective(50, float(w) / h, .000001, 175)
+	gluPerspective(85, float(w) / h, .000001, 175)
 	gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
@@ -64,6 +64,7 @@ LD = glGenLists(3)
 LD_2D=LD+1
 LD_3D=LD+2
 LD_CL=LD+3
+
 glNewList(LD, GL_COMPILE)
 VBO()
 glEndList()
@@ -77,6 +78,7 @@ glNewList(LD_2D,GL_COMPILE)
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
 glOrtho(0,w,0,h, 0.1, 1000)
+gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 glMatrixMode(GL_MODELVIEW)
 glLoadIdentity()
 glEndList()
@@ -84,12 +86,18 @@ glEndList()
 glNewList(LD_3D, GL_COMPILE)
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
-gluPerspective(45.0,float(w)/float(h),0.1,100.0)
+gluPerspective(85.0,float(w)/float(h),0.1,200.0)
+gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 glMatrixMode(GL_MODELVIEW)
 glLoadIdentity()
 glEndList()
 
 while running:
+	glDrawBuffer(GL_BACK)
+	glClear(GL_COLOR_BUFFER_BIT)
+	glColor (0.0, 1.0, 1.0, 1.0)
+	glCallList(LD)
+
 	for event in pygame.event.get():
 		if event.type == pygame.KEYUP:
 			glCallList(LD_2D)
@@ -103,19 +111,13 @@ while running:
 			running=False
 			sys.exit()
 
-	glDrawBuffer(GL_BACK)
-	glClear(GL_COLOR_BUFFER_BIT)
-	glColor (0.0, 1.0, 1.0, 1.0)
-
-
-	glCallList(LD)
 	pg_screen = pygame.Surface((w,h), flags=pygame.SRCALPHA)
 	pygame.draw.rect(screen,color_dark,[round(w/2),round(h/2),140,40])
 	pg_screen.blit(text , ( round(w/2)+50, round(h/2) ) )
 
-	glDrawBuffer(GL_FRONT)
-	glClear(GL_DEPTH_BUFFER_BIT)
-	glColor (0.0, 1.0, 1.0, 1.0)
+	#glDrawBuffer(GL_FRONT)
+	#glClear(GL_DEPTH_BUFFER_BIT)
+	#glColor (0.0, 1.0, 1.0, 1.0)
 
-	glFlush()
 	pygame.display.flip ()
+	#glFlush()

@@ -17,7 +17,6 @@
   >>> import ode
   >>> import osim
   >>> import pybullet
-  pybullet build time: Aug 17 2020 02:58:51
   >>> import pyopencl
   >>> import shapefile
   >>> import pyodesys
@@ -63,4 +62,4 @@ mesh.geometries[0].primitives[0].normal_index
 X = mesh.geometries[0].primitives[0].vertex
 Y = mesh.geometries[1].primitives[0].vertex
 ´´´
-#### Listo por ahora. 
+#### Listo por ahora.

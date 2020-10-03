@@ -11,8 +11,6 @@ import Tao.FreeGlut.Glut as Glut
 from NP2Interface.simple_obj_import import *
 
 def pusher():
-
-
 	Gl.glLineWidth(1.0)
 	Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL)
 

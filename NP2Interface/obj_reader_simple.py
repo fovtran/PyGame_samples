@@ -28,6 +28,6 @@ def open_obj(fil):
 
 	return faces, verts, normals
 
-faces, verts = open_obj('media/head_normalization/head1.obj')
+faces, verts = open_obj('media/ggg.obj')
 for i,v in enumerate(verts): print("{} -> {}".format(i,v))
 for i,f in enumerate(faces): print("{} -> {}".format(i,f))

@@ -1,6 +1,6 @@
 import bpy
 from mathutils import Vector
-from numpy import pi,sin,cos,tan,tanh,linspace
+from numpy import pi,sin,cos,tan,tanh,linspace,random,vectorize
 import random
 
 pi2 = pi * 2

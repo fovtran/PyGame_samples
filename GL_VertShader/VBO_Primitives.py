@@ -18,6 +18,8 @@ from IMAGE_Primitives import *
 
 
 def VBO(tex):
+	# Nuestro Vertex Buffer esta Vacio. corregir
+	# Color morado significa que nuestro quads no tiene vertices de textura asignados.
 	#glColor3f( 1, 0, 0 )
 	glEnableClientState(GL_VERTEX_ARRAY)
 	glPushMatrix()
@@ -26,10 +28,11 @@ def VBO(tex):
 	glDisableClientState(GL_VERTEX_ARRAY)
 
 def NormalMapping():
+	# Cambiar nombre de funcion
 	glColor3f( 1.0, 1.0, 1.0)
 	y = -2
 	X = [-5,-4,-3,-2,-1,0,1,2,3,4,5]
-	Z = [1,2,3,4,5,6,7,8,9,10,11,12]
+	Z = [1,2,3,4,5,6,7,8,9,10,11]
 	for x in X:
 		for z in Z:
 			glPushMatrix()

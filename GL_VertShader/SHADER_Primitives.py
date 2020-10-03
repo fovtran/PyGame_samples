@@ -15,11 +15,28 @@ import array
 from VBO_Primitives import *
 from IMAGE_Primitives import *
 
+def getTexture(fileName):
+	img = pygame.image.load(fileName)
+	#img = Image.open(filename)
+	#img_data = numpy.array(list(img.getdata()), numpy.int8)
+	rawTextureData = pygame.image.tostring(img, "RGB", 1)
+	width = img.get_width()
+	height = img.get_height()
+
+	try:
+		texture = FileTexture( fileName )
+	except:
+		print ('could not open ', fileName, '; using random texture')
+		#texture = RandomTexture( 256, 256 )
+		texture = rawTextureData
+
+	return texture, width, height
+
 def getShader():
 	shaderProgram = glCreateProgram()
 
 	try:
-		vertexShader = compileShader(getFileContent("vertex.vert"), GL_VERTEX_SHADER)
+		vertexShader = compileShader(getFileContent("vertex.vert"), GL_VERTEX_SHADER) # TODO: RESUMIR
 		fragmentShader = compileShader(getFileContent("vertex.frag"), GL_FRAGMENT_SHADER)
 		glAttachShader(shaderProgram, vertexShader)
 		glAttachShader(shaderProgram, fragmentShader)
@@ -31,28 +48,11 @@ def getShader():
 			print(a)
 			pass
 
-	return shaderProgram
-
-def getTexture(fileName):
-	img = pygame.image.load(fileName)
-	#img = Image.open(filename)
-	#img_data = numpy.array(list(img.getdata()), numpy.int8)
-	textureData = pygame.image.tostring(img, "RGB", 1)
-	width = img.get_width()
-	height = img.get_height()
-
-	try:
-		texture = FileTexture( fileName )
-	except:
-		print ('could not open ', fileName, '; using random texture')
-		#texture = RandomTexture( 256, 256 )
-		texture = textureData
-
-	return texture, width, height
+	return shaderProgram # Devuelve shader zero. corregir.
 
 def BindTexture(texture, width, height):
-	glGenTextures(1)
-	glBindTexture(GL_TEXTURE_2D, 1)
+	Tx = glGenTextures(1)
+	glBindTexture(GL_TEXTURE_2D, Tx)
 	#glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
 
 	#glTexImage2D( GL_TEXTURE_2D, 0, 3, texture.xSize, texture.ySize, 0, GL_RGB, GL_UNSIGNED_BYTE, texture.rawReference )
@@ -66,9 +66,8 @@ def BindTexture(texture, width, height):
 	#glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 	#glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
-	glTexImage2D( GL_TEXTURE_2D, 0, 3, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture )
+	glTexImage2D( GL_TEXTURE_2D, 0, 3, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture ) #INVESTIGAR
 	#glGenerateMipmap(GL_TEXTURE_2D)
-
 
 def VertexAttributes(shaderProgram):
 	vertices = [-0.5, -0.5,

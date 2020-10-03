@@ -30,8 +30,8 @@ def init():
 	lightZeroColor = [0.9, 1.0, 0.9, 1.0]
 	glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition)
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightZeroColor)
-	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1)
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.5)
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.05)
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05)
 	glEnable(GL_LIGHT0)
 
 	glEnable(GL_COLOR_MATERIAL)
@@ -53,8 +53,8 @@ def init():
 
 	glMatrixMode(GL_PROJECTION)
 	glLoadIdentity()
-	gluPerspective(45, float(w) / h, .000001, 275)
-	gluLookAt(0, 0, -5, 0, 0, 0, 0, 1, 0)
+	gluPerspective(85, float(w) / h, .000001, 275)
+	gluLookAt(-2, 2, -4, 0, 0, 0, 0, 1, 0)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
@@ -63,7 +63,7 @@ def main():
 	init()
 	f = "../media/checkers12.jpg"
 	global shaderProgram
-	shaderProgram = getShader()
+	shaderProgram = getShader() # Shaderprogram es always zero. corregir
 	t, w, h = getTexture(f)
 	BindTexture(t, w, h)
 	#glUseProgram(shaderProgram)
@@ -71,7 +71,7 @@ def main():
 	#tex = getTextureLoc(shaderProgram, 'tex')
 	clock = pygame.time.Clock()
 
-	while 1:
+	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT: sys.exit()
 			if event.type == pygame.KEYUP:
@@ -83,9 +83,9 @@ def main():
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 		glDrawBuffer(GL_BACK)
 
-		#drawCube()
-		#glUseProgram(shaderProgram)
+		#glUseProgram(shaderProgram) #glUseProgram llama a ShaderZero
 		NormalMapping()
+		drawCube()
 		VBO(1)
 		glUseProgram(0)
 
