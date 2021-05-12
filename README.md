@@ -32,6 +32,11 @@
 - Obtain NuGet from Microsoft.
 
 
+#### Analysis of project
+##### NOTICE
+
+- Python's CLR do not run the same as IronPython's CLR.
+
 
 #### Usation
 

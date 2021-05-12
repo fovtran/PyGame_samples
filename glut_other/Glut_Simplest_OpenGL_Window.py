@@ -4,9 +4,13 @@ import numpy as np
 import scipy as sc
 import sympy as sy
 
+import OpenGL
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
+import OpenGL.GL
+import OpenGL.GLUT
+import OpenGL.GLU
 
 def display():
 	# Clear off-screen buffer
@@ -17,7 +21,7 @@ def display():
     glutSwapBuffers()
 
 # Initialize Glut
-glutInit(sys.argv)
+glutInit()
 
 # Create a double-buffer RGBA window.   (Single-buffering is possible.
 # So is creating an index-mode window.)
