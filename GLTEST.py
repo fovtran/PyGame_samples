@@ -3,7 +3,6 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from OpenGL.GLUT import freeglut
-
 print("Imports successful!") # If you see this printed to the console then installation was successful
 
 def showScreen():
@@ -19,14 +18,14 @@ if glutInitWindowPosition:
     glutInitWindowPosition(0, 0)   # Set the position at which this windows should appear
 if glutCreateWindow:
     wind = glutCreateWindow("OpenGL Coding Practice") # Give your window a title
-#if glutDisplayFunc(showScreen):
-#    glutDisplayFunc(showScreen())  # Tell OpenGL to call the showScreen method continuously
 
-if glutIdleFunc():
+if glutDisplayFunc:
+    glutDisplayFunc(showScreen())  # Tell OpenGL to call the showScreen method continuously
+
+if glutIdleFunc:
     glutIdleFunc(showScreen)     # Draw any graphics or shapes in the showScreen function at all times
 if glutMainLoop:
     glutMainLoop()  # Keeps the window created above displaying/running in a loop
-
 
 # glmf32.dll
 # freeglut.dll

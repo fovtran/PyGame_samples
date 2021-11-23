@@ -61,9 +61,10 @@ def init():
 
 def main():
 	init()
-	f = "../media/checkers12.jpg"
+	print(os.getcwd())
 	global shaderProgram
 	shaderProgram = getShader() # Shaderprogram es always zero. corregir
+	f = "..\\Media\\checkers8_hd.png"
 	t, w, h = getTexture(f)
 	BindTexture(t, w, h)
 	#glUseProgram(shaderProgram)
