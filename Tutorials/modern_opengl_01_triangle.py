@@ -32,7 +32,6 @@ void main(void)
 }
 """
 
-
 fragment = """
 #version 120
 in vec3 vout_color;

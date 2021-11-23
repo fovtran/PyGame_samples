@@ -184,8 +184,8 @@ class Triangle:
 
 def main():
     #glutInit()
+    glutInitContextVersion(3, 3) # this call cause an error when glVertexAttribPointer
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
-    # glutInitContextVersion(3, 3) # this call cause an error when glVertexAttribPointer
     glutInitContextFlags(GLUT_CORE_PROFILE | GLUT_DEBUG)
     glutInitWindowSize(256, 256)
     glutCreateWindow(b"vbo")

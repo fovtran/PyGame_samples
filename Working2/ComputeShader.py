@@ -7,7 +7,7 @@ from pygame.locals import *
 import numpy as np
 
 compute_shader_code = """
-#version 430
+#version 330
 layout(local_size_x = 1, local_size_y = 1) in;
 layout(std430, binding=0) buffer data{  vec4 Data[]; };
 
@@ -37,10 +37,10 @@ def test():
     #glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, work_grp_size[0]);
     #glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, work_grp_size[1]);
     #glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, work_grp_size[2]);
-    print(glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE,1))
-    print(glGetIntegerv(GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS,1))
+    print(glGetInteger(GL_MAX_RENDERBUFFER_SIZE,1))
+    #print(glGetInteger(GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS,1))
     #print(glGetIntegerv(GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS,1))
-    print(glGetIntegerv(GL_MAX_UNIFORM_BUFFER_BINDINGS,1))
+    print(glGetInteger(GL_MAX_UNIFORM_BUFFER_BINDINGS,1))
 
     #print("max local (in one shader) work group sizes x:{0} y:{0} z:{0}", \
     #    work_grp_size[0], work_grp_size[1], work_grp_size[2]);
@@ -48,7 +48,7 @@ def test():
     print("Creating shader program")
     shader_program = -1
     ray_shader = -1
-
+    # GL_COMPUTE_SHADER = compute_shader_code
     shader_program = glCreateShader(GL_COMPUTE_SHADER)
     glShaderSource(shader_program, compute_shader_code)
     glCompileShader(shader_program)
