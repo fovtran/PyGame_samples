@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.8)
+project(MyWinFormApp LANGUAGES CSharp)
+include(CSharpUtilities)
+
+# The .resx and other Properties files are optional here, but including them makes them visible in the VS solution for easy editing.
+# add_executable(MyWinFormApp example1/HelloGL3.cs )
+# add_executable(MyWinFormApp example2/MouseCursorSimple.cs )
+# add_executable(MyWinFormApp example3/GameWindowMsaa.cs )
+add_executable(MyWinFormApp example4/Tao.cs )
+
+# Set the .NET Framework version for the executable.
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_TARGET_FRAMEWORK_VERSION "v4.6.1")
+set_property(TARGET MyWinFormApp PROPERTY WIN64_EXECUTABLE TRUE)
+set(TARGET MyWinFormApp PROPERTY AutoGenerateBindingRedirects TRUE)
+# Set the C# language version (defaults to 3.0).
+set(CMAKE_CSharp_FLAGS "/langversion:latest")
+csharp_set_windows_forms_properties()
+# csharp_set_xaml_cs_properties()
+# csharp_set_designer_cs_properties()
+
+# If necessary, link in other library dependencies that were built locally in this source tree.
+target_link_libraries(MyWinFormApp MyLocalLib)
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCE_OpenTK ./packages/opentk.3.2/lib/net20/opentk.dll)
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCE_OpenTKGLControl ./packages/opentk.glcontrol.3.1.0/lib/net20/opentk.glcontrol.dll)
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCE_OpenTKControls ./packages/opentk.glwpfcontrol.2.1.0/lib/net452/glwpfcontrol.dll)
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCE_OpenGL ./packages/opengl.net.1.0.304/lib/net461/opengl.net.dll)
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCE_OpenGLWinforms ./packages/opengl.net.winforms.1.0.304/lib/net461/opengl.net.winforms.dll)
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCE_Numerics ./packages/numerics.1.0.14/lib/net461/numerics.dll)
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCE_NewtonSoft ./packages/newtonsoft.json.12.0.3/lib/net45/newtonsoft.json.dll)
+
+# Add in the .NET reference libraries.
+set_property(TARGET MyWinFormApp PROPERTY VS_DOTNET_REFERENCES
+    "Microsoft.CSharp"
+    "System"
+    "System.Core"
+    "System.Data"
+    "System.Data.DataSetExtensions"
+    "System.Net"
+    "System.Net.Http"
+    "System.Xaml"
+    "System.Xml"
+    "System.Xml.Linq"
+    "System.Drawing"
+    "System.Windows.Forms"
+    "PresentationFramework"
+    "PresentationCore"
+    "WindowsBase"
+)

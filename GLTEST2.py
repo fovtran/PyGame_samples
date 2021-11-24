@@ -16,15 +16,12 @@ def display():
 	# Clear off-screen buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	# -- Draw something here
-
 	# -- Pushes off-screen buffer to the videoram
     glutSwapBuffers()
 
 # Initialize Glut
 glutInit()
-
-# Create a double-buffer RGBA window.   (Single-buffering is possible.
-# So is creating an index-mode window.)
+# Create a double-buffer RGBA window.   (Single-buffering is possible. So is creating an index-mode window.)
 glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
 
 # Create a window, setting its title

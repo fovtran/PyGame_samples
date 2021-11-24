@@ -14,10 +14,13 @@ h = 600
 FPS = 10
 
 def pygame_init():
-	global screen,text
+	global screen
 	pygame.init ()
 	pygame.font.init()
-	screen = pygame.display.set_mode ((w,h), pygame.HWSURFACE | pygame.OPENGL | pygame.DOUBLEBUF | pygame.RESIZABLE, 24)
+	info = pygame.display.Info()
+	print(info)
+	flags = pygame.HWSURFACE | pygame.OPENGL | pygame.DOUBLEBUF | pygame.RESIZABLE | pygame.SRCALPHA
+	screen = pygame.display.set_mode ((w,h),flags, 24, vsync=0)
 	glViewport (0, 0, w, h)
 
 	lightZeroPosition = [0., -4., 10., 1.]
@@ -34,13 +37,13 @@ def pygame_init():
 
 	glEnable(GL_COLOR_MATERIAL)
 	glEnable( GL_TEXTURE_2D )
-	glEnable(GL_MULTISAMPLE)
+	glDisable(GL_MULTISAMPLE)
 	#glEnable(GL_NORMALIZE)
 	glEnable(GL_POINT_SMOOTH)
 	glEnable(GL_LINE_SMOOTH)
 	glEnable(GL_POLYGON_SMOOTH)
 	glEnable(GL_POLYGON_OFFSET_FILL)
-	glEnable(GL_BLEND);
+	glDisable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 	glShadeModel( GL_SMOOTH )
 
@@ -62,11 +65,11 @@ def VBO():
 	glPushMatrix()
 	glColor (0.05, 0.95, 0.05, 1.0)
 	glDrawArrays (GL_TRIANGLES, 0, 3)
-	glPopMatrix()
+	#glPopMatrix()
 	glDisableClientState (GL_VERTEX_ARRAY)
 
 running = True
-screen = pygame_init()
+pygame_init()
 
 color_dark = (2,2,2,255)
 global LD
@@ -77,21 +80,20 @@ LD_4D=LD+3
 LD_CL=LD+4
 
 glNewList(LD, GL_COMPILE)
+glLoadIdentity()
 VBO()
 glEndList()
 
 glNewList(LD_CL, GL_COMPILE)
-glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-#glLoadIdentity()
 glEndList()
 
-glNewList(LD_2D,GL_COMPILE)
+glNewList(LD_2D, GL_COMPILE)
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
 glOrtho(0,w,0,h, 0.1, 1000)
 gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 glMatrixMode(GL_MODELVIEW)
-#glLoadIdentity()
+glLoadIdentity()
 glEndList()
 
 glNewList(LD_3D, GL_COMPILE)
@@ -100,7 +102,7 @@ glLoadIdentity()
 gluPerspective(85.0,float(w)/float(h), 0.1, 1000)
 gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 glMatrixMode(GL_MODELVIEW)
-#glLoadIdentity()
+glLoadIdentity()
 glEndList()
 
 glNewList(LD_4D, GL_COMPILE)
@@ -109,46 +111,52 @@ glLoadIdentity()
 gluPerspective(85, float(w) / h, .000001, 1000)
 gluLookAt(0,0,-5, 0,0,0, 0, 1, 0)
 glMatrixMode(GL_MODELVIEW)
-#glLoadIdentity()
+glLoadIdentity()
 glEndList()
+
+# store current matrix
+glMatrixMode( GL_MODELVIEW );
+glLoadIdentity();
+glPushMatrix( );
+
+# restore current matrix
+glMatrixMode( GL_MODELVIEW );
+glPopMatrix( );
 
 def Controls():
 	if True:
 		for event in pygame.event.get():
-			if event.type == pygame.KEYUP:	glCallList(LD_2D)
+			if event.type == pygame.KEYUP:	glCallList(LD_2D);glLoadIdentity()
 			if event.type == pygame.KEYDOWN:	glCallList(LD_3D)
 			if event.type == pygame.K_LEFT:	glCallList(LD_4D)
 			if event.type == pygame.K_RIGHT:	glCallList(LD_CL)
-			if event.type == pygame.QUIT:	sys.exit()
-			if event.type == pygame.K_SPACE:	pygame.exit()
+			if event.type == pygame.QUIT:	pygame.quit()
+			if event.type == pygame.K_SPACE:	pygame.quit()
 
 clock = pygame.time.Clock()
 color = pygame.Color('white')
 #start_button = pygame.draw.rect(surface,(0,0,240),(150,90,100,50));
-#continue_button = pygame.draw.rect(surface,(0,244,0),(150,160,100,50));
 #quit_button = pygame.draw.rect(surface,(244,0,0),(150,230,100,50));
 surface = pygame.Surface(( round(w/2)+50, round(h/2) ), flags=pygame.SRCALPHA)
-other = pygame.draw.rect(surface, color, [round(w/2),round(h/2),40,40])
+rect = pygame.draw.rect(surface, color, [0,0,40,40])
 
 smallfont = pygame.font.SysFont('Corbel',35)
 text = smallfont.render('quit' , 0, color)
 text.set_alpha(100)
-font = pygame.font.SysFont("Arial", 35)
+surface.fill(color)
+
+#pygame.display.update()
 
 while running:
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	dt = clock.tick(FPS) / 1000
 	Controls()
+	glClear(GL_COLOR_BUFFER_BIT)
+	glCallList(LD_CL)
 	glDrawBuffer(GL_BACK)
-	glDrawBuffer(GL_FRONT)
+	glCallList(LD_4D)
 	glCallList(LD)
-
-	label = font.render(str(dt), 0, color)
-	label.set_alpha(100)
-	surface.fill(color)
-	surface.blit(label, (10,10))
-	surface.blit(text, ( round(w/2)+50, round(h/2) ) )
-
+	#glDrawBuffer(GL_FRONT)
+	surface.blit(text, (100,0))
 	pygame.display.flip ()
-	#pygame.display.update()
+	pygame.time.wait(10)
 	glFlush()
