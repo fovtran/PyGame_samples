@@ -239,7 +239,7 @@ namespace Examples.Tutorial
 
         #region public static void Main()
         [STAThread]
-        public static void Main6()
+        public static void Main()
         {
             using (GameWindow example = new ThreadedRendering())
             {

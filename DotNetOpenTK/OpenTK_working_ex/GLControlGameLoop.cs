@@ -9,6 +9,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
+using System.Runtime.InteropServices;
+using System.Reflection;
 
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Platform;
@@ -18,7 +20,6 @@ using OpenTK;
 
 namespace Examples.WinForms
 {
-   // [Example("Simple GLControl Game Loop", ExampleCategory.OpenTK, "GLControl", 2, Documentation="GLControlGameLoop")]
     public partial class GameLoopForm : Form
     {
         static float angle = 0.0f;
@@ -86,6 +87,13 @@ namespace Examples.WinForms
         #region GLControl.Resize event handler
         void glControl_Resize(object sender, EventArgs e)
         {
+          /*
+          System.Reflection.Assembly a = System.Reflection.Assembly.Load("opentk.glcontrol.dll");
+          System.Type OpenTK = a.GetType("OpenTK");
+          System.Reflection.MethodInfo myMethod = OpenTK.GetMethod("GLControl");
+          object obj = System.Activator.CreateInstance(OpenTK);
+          myMethod.Invoke(obj, null);
+
             OpenTK.GLControl c = sender as OpenTK.GLControl;
 
             if (c.ClientSize.Height == 0)
@@ -96,7 +104,7 @@ namespace Examples.WinForms
             float aspect_ratio = Width / (float)Height;
             Matrix4 perpective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspect_ratio, 1, 64);
             GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(ref perpective);
+            GL.LoadMatrix(ref perpective);*/
         }
         #endregion
 
@@ -199,14 +207,12 @@ namespace Examples.WinForms
 
         #endregion
 
-        #region public static void Main5()
+        #region public static void Main()
         [STAThread]
-        public static void Main5()
+        public static void Main()
         {
             using (GameLoopForm example = new GameLoopForm())
             {
-                //ExampleAttribute info = ((ExampleAttribute)example.GetType().GetCustomAttributes(false)[0]);
-                //example.Text = String.Format("OpenTK | {0} {1}: {2}", info.Category, info.Difficulty, info.Title);
                 example.ShowDialog();
             }
         }

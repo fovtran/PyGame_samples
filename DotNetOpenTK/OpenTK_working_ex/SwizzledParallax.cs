@@ -11,7 +11,6 @@ using Examples.TextureLoaders;
 
 namespace Examples.Tutorial
 {
-    // [Example("Swizzled Parallax Mapping", ExampleCategory.OpenGL, "2.x", Documentation = "SwizzledParallax")]
     public class T12_GLSL_Parallax: GameWindow
     {
         public T12_GLSL_Parallax( )
@@ -68,7 +67,7 @@ namespace Examples.Tutorial
                     GL.GetString(StringName.Version).Substring(0, 3)));
             }
 
-            if (!extensions.Contains("GL_ARB_texture_compression") || 
+            if (!extensions.Contains("GL_ARB_texture_compression") ||
                  !extensions.Contains("GL_EXT_texture_compression_s3tc"))
             {
                 throw new NotSupportedException("This example requires support for texture compression. Aborting.");
@@ -178,7 +177,7 @@ namespace Examples.Tutorial
 
             ImageDDS.LoadFromDisk( TMU0_Filename, out TMU0_Handle, out TMU0_Target );
             Trace.WriteLine( "Loaded " + TMU0_Filename + " with handle " + TMU0_Handle + " as " + TMU0_Target );
-           
+
             ImageDDS.LoadFromDisk( TMU1_Filename, out TMU1_Handle, out TMU1_Target );
             Trace.WriteLine( "Loaded " + TMU1_Filename + " with handle " + TMU1_Handle + " as " + TMU1_Target );
 
@@ -280,7 +279,7 @@ namespace Examples.Tutorial
             #endregion Textures
 
             #region Uniforms
-            // first Material's uniforms      
+            // first Material's uniforms
             GL.Uniform1( GL.GetUniformLocation( ProgramObject, "Material_DiffuseAndHeight" ), TMU0_UnitInteger );
             GL.Uniform1( GL.GetUniformLocation( ProgramObject, "Material_NormalAndGloss" ), TMU1_UnitInteger );
             GL.Uniform3( GL.GetUniformLocation( ProgramObject, "Material_ScaleBiasShininess" ), MaterialScaleAndBiasAndShininess.X, MaterialScaleAndBiasAndShininess.Y, MaterialScaleAndBiasAndShininess.Z );
@@ -339,7 +338,7 @@ namespace Examples.Tutorial
         }
 
         [STAThread]
-        public static void Main7( )
+        public static void Main( )
         {
             using ( T12_GLSL_Parallax example = new T12_GLSL_Parallax( ) )
             {

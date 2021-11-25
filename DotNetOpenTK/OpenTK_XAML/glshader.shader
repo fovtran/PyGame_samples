@@ -1,6 +1,4 @@
-
-Vertex shader:
-
+// Vertex shader:
 #version 120
 varying vec4 Vertex_UV;
 uniform mat4 gxl3d_ModelViewProjectionMatrix;
@@ -11,9 +9,7 @@ void main()
 }
 
 
-
-Fragment shader:
-
+// Fragment shader:
 version 120
 uniform sampler2D tex0;
 varying vec4 Vertex_UV;

@@ -12,8 +12,6 @@ using Examples.Shapes;
 
 namespace Examples.Tutorial
 {
-
-    // [Example("Stencil CSG", ExampleCategory.OpenGL, "1.x", Documentation = "StencilCSG")]
     partial class StencilCSG : GameWindow
     {
         #region Model Related

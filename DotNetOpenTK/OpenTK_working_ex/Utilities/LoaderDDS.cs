@@ -14,6 +14,7 @@
 using System;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 using OpenTK;
 using OpenTK.Graphics;
@@ -21,7 +22,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Examples.TextureLoaders
 {
-    /// <summary> 
+    /// <summary>
     /// Expects the presence of a valid OpenGL Context and Texture Compression Extensions (GL 1.5) and Cube Maps (GL 1.3).
     /// You will get what you give. No automatic Mipmap generation or automatic compression is done. (both bad quality)
     /// Textures are never rescaled or checked if Power of 2, but you should make the Width and Height a multiple of 4 because DXTn uses 4x4 blocks.
@@ -33,7 +34,7 @@ namespace Examples.TextureLoaders
         #region Constants
         private const byte HeaderSizeInBytes = 128; // all non-image data together is 128 Bytes
         private const uint BitMask = 0x00000007; // bits = 00 00 01 11
-       
+
 
         private static NotImplementedException Unfinished = new NotImplementedException( "ERROR: Only 2 Dimensional DXT1/3/5 compressed images for now. 1D/3D Textures may not be compressed according to spec." );
         #endregion Constants
@@ -44,6 +45,10 @@ namespace Examples.TextureLoaders
         private static int _BytesForMainSurface; // must be handled with care when implementing uncompressed formats!
         private static byte _BytesPerBlock;
         private static PixelInternalFormat _PixelInternalFormat;
+        //private static IntPtr _PixelInternalFormat;
+        //IntPtr _PixelfmtPtr = Marshal.AllocHGlobal(Enum.GetNames(typeof(_PixelInternalFormat)).Length);
+        //Marshal.Copy(_PixelInternalFormat, 0, _PixelfmtPtr, Enum.GetNames(typeof(_PixelInternalFormat)).Length);
+        //Marshal.FreeHGlobal(_PixelfmtPtr);
         #endregion Simplified In-Memory representation of the Image
 
         #region Flag Enums
@@ -60,7 +65,7 @@ namespace Examples.TextureLoaders
             DEPTH = 0x00800000 // is set for 3D Volume Textures
         }
 
-        [Flags] // Pixelformat 
+        [Flags] // Pixelformat
         private enum eDDPF: uint
         {
             NONE = 0x00000000, // not part of DX, added for convenience
@@ -182,7 +187,7 @@ namespace Examples.TextureLoaders
         /// <summary>
         /// This function will generate, bind and fill a Texture Object with a DXT1/3/5 compressed Texture in .dds Format.
         /// MipMaps below 4x4 Pixel Size are discarded, because DXTn's smallest unit is a 4x4 block of Pixel data.
-        /// It will set correct MipMap parameters, Filtering, Wrapping and EnvMode for the Texture. 
+        /// It will set correct MipMap parameters, Filtering, Wrapping and EnvMode for the Texture.
         /// The only call inside this function affecting OpenGL State is GL.BindTexture();
         /// </summary>
         /// <param name="filename">The name of the file you wish to load, including path and file extension.</param>
@@ -208,7 +213,7 @@ namespace Examples.TextureLoaders
             #endregion
 
             #region Try
-            try // Exceptions will be thrown if any Problem occurs while working on the file. 
+            try // Exceptions will be thrown if any Problem occurs while working on the file.
             {
                 _RawDataFromFile = File.ReadAllBytes( @filename );
 
@@ -302,7 +307,7 @@ namespace Examples.TextureLoaders
                         _IsCompressed = true;
                         break;
                     default:
-                        throw Unfinished; // handle uncompressed formats 
+                        throw Unfinished; // handle uncompressed formats
                     } else
                     throw Unfinished;
                 // pf*Bitmasks should be examined here
@@ -399,7 +404,7 @@ namespace Examples.TextureLoaders
                                             RawDataOfSurface[target + 15] = _RawDataFromFile[source + 12];
                                             break;
                                         case (PixelInternalFormat) ExtTextureCompressionS3tc.CompressedRgbaS3tcDxt5Ext:
-                                            // Alpha, the first 2 bytes remain 
+                                            // Alpha, the first 2 bytes remain
                                             RawDataOfSurface[target + 0] = _RawDataFromFile[source + 0];
                                             RawDataOfSurface[target + 1] = _RawDataFromFile[source + 1];
 
@@ -427,12 +432,14 @@ namespace Examples.TextureLoaders
                             #endregion Prepare Array for TexImage
 
                             #region Create TexImage
+                            // Call unmanaged code
+
                             switch ( dimension )
                             {
                             case TextureTarget.Texture2D:
                                 GL.CompressedTexImage2D( TextureTarget.Texture2D,
                                                          Level,
-                                                         _PixelInternalFormat,
+                                                         (InternalFormat)_PixelInternalFormat,
                                                          Width,
                                                          Height,
                                                         TextureLoaderParameters.Border,
@@ -442,7 +449,7 @@ namespace Examples.TextureLoaders
                             case TextureTarget.TextureCubeMap:
                                 GL.CompressedTexImage2D( TextureTarget.TextureCubeMapPositiveX + Slices,
                                                          Level,
-                                                         _PixelInternalFormat,
+                                                         (InternalFormat)_PixelInternalFormat,
                                                          Width,
                                                          Height,
                                                          TextureLoaderParameters.Border,
@@ -597,7 +604,7 @@ namespace Examples.TextureLoaders
             dwCaps2 = GetUInt32( ref input, offset );
             offset += 4;
 #if READALL
-            dwReserved2 = new UInt32[3]; // offset is 4+112 here, + 12 = 4+124 
+            dwReserved2 = new UInt32[3]; // offset is 4+112 here, + 12 = 4+124
 #endif
             offset += 4 * 3;
         }

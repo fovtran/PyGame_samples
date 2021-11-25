@@ -7,7 +7,6 @@ using OpenTK.Input;
 
 namespace Examples.Tutorial
 {
-    // [Example("Custom MouseCursor", ExampleCategory.OpenTK, "GameWindow", 1, Documentation = "MouseCursorSimple")]
     public class MouseCursorSimple : GameWindow
     {
         readonly MouseCursor MyCursor;
@@ -16,8 +15,6 @@ namespace Examples.Tutorial
         public MouseCursorSimple()
             : base(800, 600)
         {
-            KeyDown += Keyboard_KeyDown;
-
             using (Bitmap bitmap = new Bitmap("Data/Textures/cursor.png"))
             {
                 var data = bitmap.LockBits(
@@ -25,11 +22,10 @@ namespace Examples.Tutorial
                     System.Drawing.Imaging.ImageLockMode.ReadOnly,
                     System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
-                MyCursor = new OpenTK.MouseCursor(
-                    2, 21, data.Width, data.Height, data.Scan0);
+                MyCursor = new OpenTK.MouseCursor(2, 21, data.Width, data.Height, data.Scan0);
                 Cursor = MyCursor;
             }
-
+            KeyDown += Keyboard_KeyDown;
             MouseMove += Mouse_Move;
             MouseDown += Mouse_ButtonDown;
         }
