@@ -1,11 +1,16 @@
 MAIN_FILE = TK_Visualizer
+VERSION = .
+BUILD_PATH = .\build\$(VERSION)
+EXECUTABLE = $(MAIN_FILE).exe
+EXEC_PATH = $(BUILD_PATH)\$(EXECUTABLE)
+
 # CSHARP_SOURCE_FILES = $(wildcard */*/*.cs */*.cs *.cs)
 CSHARP_SOURCE_FILES = "TK_Visualizer.cs"
 
-BASE_PATH_WPF = C:/Windows/Microsoft.NET/Framework64/v4.0.30319/WPF
-CSHARP_LIBS = $(CSHARP_LIBS) /r:$(BASE_PATH_WPF)/PresentationFramework.dll
-CSHARP_LIBS = $(CSHARP_LIBS) /r:$(BASE_PATH_WPF)/PresentationCore.dll
-CSHARP_LIBS = $(CSHARP_LIBS) /r:$(BASE_PATH_WPF)/WindowsBase.dll
+BASE_PATH_WPF = C:\Windows\Microsoft.NET\Framework64\v4.0.30319\WPF
+CSHARP_LIBS = $(CSHARP_LIBS) /r:$(BASE_PATH_WPF)\PresentationFramework.dll
+CSHARP_LIBS = $(CSHARP_LIBS) /r:$(BASE_PATH_WPF)\PresentationCore.dll
+CSHARP_LIBS = $(CSHARP_LIBS) /r:$(BASE_PATH_WPF)\WindowsBase.dll
 CSHARP_LIBS = $(CSHARP_LIBS) /r:Microsoft.CSharp.dll
 CSHARP_LIBS = $(CSHARP_LIBS) /r:System.dll
 CSHARP_LIBS = $(CSHARP_LIBS) /r:System.Core.dll
@@ -30,7 +35,7 @@ CSHARP_LIBS = $(CSHARP_LIBS) /r:./packages/System.Numerics.Vectors.4.5.0/lib/net
 CSHARP_LIBS = $(CSHARP_LIBS) /r:./packages/ZeroMQ.4.1.0.31/lib/net40/ZeroMQ.dll
 CSHARP_LIBS = $(CSHARP_LIBS) /r:./packages/OpenTK.3.3.2/lib/net20/OpenTK.dll
 
-BASE_PATH = E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK/example4
+BASE_PATH = E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example4
 CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/OpenTK.glcontrol.3.1.0/lib/net20
 CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/OpenTK.GLWpfControl.4.1.0/lib/netcoreapp3.1
 CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/Numerics.NET.1.0.43/lib/net461
@@ -42,24 +47,42 @@ CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/System.Numeric
 CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/ZeroMQ.4.1.0.31/lib/net40
 CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/OpenTK.3.3.2/lib/net20
 
-EXECUTABLE = $(MAIN_FILE).exe
 CSHARP_FLAGS = /nologo /o /debug:full /target:exe /platform:x64
 CSHARP_COMPILER = C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe
-RM_CMD = -del /Q /F $(EXECUTABLE)
+RM_CMD = -del /Q /F
+NUGET = C:\BIN\nuget.exe
 
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(CSHARP_SOURCE_FILES)
-    @ $(CSHARP_COMPILER) /out:$(EXECUTABLE) $(CSHARP_FLAGS) $(CSHARP_LIBS_PATH) $(CSHARP_LIBS) $(CSHARP_SOURCE_FILES)
+    @ $(CSHARP_COMPILER) /out:$(EXEC_PATH) /pdb:$(BUILD_PATH)\$(MAIN_FILE).pdb $(CSHARP_FLAGS) $(CSHARP_LIBS_PATH) $(CSHARP_LIBS) $(CSHARP_SOURCE_FILES)
     @ echo compiling...
 
 run: all
-		PATH=$(PATH);/packages/OpenTK.glcontrol.3.1.0/lib/net20;./packages/OpenTK.GLWpfControl.4.1.0/lib/netcoreapp3.1;./packages/Numerics.NET.1.0.43/lib/net461;./packages/Newtonsoft.Json.13.0.1/lib/net45;./packages/GeoJSON.Net.1.2.22-rc/lib/net45;./packages/System.Runtime.Numerics.4.3.0/lib/netstandard1.3;./packages/System.Numerics.Tensors.6.0.0-rtm.21522.10/lib/net461;./packages/System.Numerics.Vectors.4.5.0/lib/net46;./packages/ZeroMQ.4.1.0.31/lib/net40;./packages/OpenTK.3.3.2/lib/net20;
-    .\$(EXECUTABLE)
+		.\scripts\run.cmd $(BUILD_PATH) $(EXECUTABLE)
 
 clean:
-    @ $(RM_CMD)
+    @ $(RM_CMD) $(EXECUTABLE)
+
+cleanall:
+	@ $(RM_CMD) .\build .\packages
 
 remake:
     @ $(MAKE) clean
     @ $(MAKE)
+
+initialize:
+	del /Q /S /F .\build
+	del /Q /S /F .\packages
+	$(NUGET) restore
+	copy .\Data $(BUILD_PATH)
+	copy .\packages\OpenTK.glcontrol.3.1.0\lib\net20\opentk.glcontrol.dll $(BUILD_PATH)
+	copy .\packages\OpenTK.GLWpfControl.4.1.0\lib\netcoreapp3.1\glwpfcontrol.dll $(BUILD_PATH)
+	copy .\packages\OpenTK.3.3.2\lib\net20\opentk.dll $(BUILD_PATH)
+	copy .\packages\Numerics.NET.1.0.43\lib\net461\numerics.dll $(BUILD_PATH)
+	copy .\packages\Newtonsoft.Json.13.0.1\lib\net45\newtonsoft.json.dll $(BUILD_PATH)
+	copy .\packages\GeoJSON.Net.1.2.22-rc\lib\net45\geojson.net.dll $(BUILD_PATH)
+	copy .\packages\System.Runtime.Numerics.4.3.0\lib\netstandard1.3\system.runtime.numerics.dll $(BUILD_PATH)
+	copy .\packages\System.Numerics.Tensors.6.0.0-rtm.21522.10\lib\net461\system.numerics.tensors.dll $(BUILD_PATH)
+	copy .\packages\System.Numerics.Vectors.4.5.0\lib\net46\system.numerics.vectors.dll $(BUILD_PATH)
+	copy .\packages\ZeroMQ.4.1.0.31\lib\net40\zeromq.dll $(BUILD_PATH)
