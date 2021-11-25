@@ -43,11 +43,8 @@ CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/ZeroMQ.4.1.0.3
 CSHARP_LIBS_PATH = $(CSHARP_LIBS_PATH) /lib:$(BASE_PATH)/packages/OpenTK.3.3.2/lib/net20
 
 EXECUTABLE = $(MAIN_FILE).exe
-CSHARP_FLAGS = /nologo /o /debug+ /target:exe /platform:x64
+CSHARP_FLAGS = /nologo /o /debug:full /target:exe /platform:x64
 CSHARP_COMPILER = C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe
-
-
-#if needed, change the remove command according to your system
 RM_CMD = -del /Q /F $(EXECUTABLE)
 
 all: $(EXECUTABLE)
@@ -57,6 +54,7 @@ $(EXECUTABLE): $(CSHARP_SOURCE_FILES)
     @ echo compiling...
 
 run: all
+		PATH=$(PATH);/packages/OpenTK.glcontrol.3.1.0/lib/net20;./packages/OpenTK.GLWpfControl.4.1.0/lib/netcoreapp3.1;./packages/Numerics.NET.1.0.43/lib/net461;./packages/Newtonsoft.Json.13.0.1/lib/net45;./packages/GeoJSON.Net.1.2.22-rc/lib/net45;./packages/System.Runtime.Numerics.4.3.0/lib/netstandard1.3;./packages/System.Numerics.Tensors.6.0.0-rtm.21522.10/lib/net461;./packages/System.Numerics.Vectors.4.5.0/lib/net46;./packages/ZeroMQ.4.1.0.31/lib/net40;./packages/OpenTK.3.3.2/lib/net20;
     .\$(EXECUTABLE)
 
 clean:
