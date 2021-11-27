@@ -1,0 +1,6 @@
+E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\obj\x64\Debug\CompilerIdCSharp.csproj.AssemblyReference.cache
+E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\obj\x64\Debug\CompilerIdCSharp.csproj.CoreCompileInputs.cache
+E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\obj\x64\Debug\CompilerIdCSharp.exe
+E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\obj\x64\Debug\CompilerIdCSharp.pdb
+E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\CompilerIdCSharp.exe
+E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\CompilerIdCSharp.pdb

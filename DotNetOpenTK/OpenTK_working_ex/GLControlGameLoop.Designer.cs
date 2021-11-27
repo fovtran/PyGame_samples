@@ -7,10 +7,7 @@ using System;
         private System.ComponentModel.IContainer components = null;
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) { components.Dispose(); }
             base.Dispose(disposing);
         }
 
@@ -54,9 +51,7 @@ using System;
             this.Name = "W02_Immediate_Mode_Cube";
             this.Text = "Cube";
             this.ResumeLayout(false);
-
         }
-
         #endregion
 
         private OpenTK.GLControl glControl;

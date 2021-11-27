@@ -36,8 +36,7 @@ namespace Examples.Tutorial
         {
             KeyDown += delegate(object sender, KeyboardKeyEventArgs e)
             {
-                if (e.Key == Key.Escape)
-                    this.Exit();
+                if (e.Key == Key.Escape)  this.Exit();
             };
 
             KeyUp += delegate(object sender, KeyboardKeyEventArgs e)
@@ -239,15 +238,7 @@ namespace Examples.Tutorial
 
         #region public static void Main()
         [STAThread]
-        public static void Main()
-        {
-            using (GameWindow example = new ThreadedRendering())
-            {
-                // Utilities.SetWindowTitle(example);
-                example.Run();
-            }
-        }
-
+        public static void Main() { using (GameWindow example = new ThreadedRendering()) { example.Run(); } }
         #endregion
     }
 }

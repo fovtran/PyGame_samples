@@ -17,9 +17,8 @@ namespace Examples.Tutorial
         #region Model Related
         DrawableShape OperandB;
         DrawableShape OperandA;
-        float MySphereZOffset = 3f;
+        float MySphereZOffset = 5f;
         float MySphereXOffset = 0f;
-
         int Texture;
         #endregion Model Related
 
@@ -32,8 +31,7 @@ namespace Examples.Tutorial
         Vector3 EyePosition = new Vector3(0f, 0f, 15f);
 
         #region Window
-        public StencilCSG()
-            : base(800, 600, new GraphicsMode(new ColorFormat(8, 8, 8, 8), 24, 8)) // request 8-bit stencil buffer
+        public StencilCSG() : base(800, 600, new GraphicsMode(new ColorFormat(8, 8, 8, 8), 24, 8)) // request 8-bit stencil buffer
         {
             base.VSync = VSyncMode.Off;
             KeyDown += delegate(object sender, KeyboardKeyEventArgs e)
@@ -83,7 +81,6 @@ namespace Examples.Tutorial
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.Light0);
             GL.ShadeModel(ShadingModel.Smooth);
-
             #endregion GL States
 
             #region Load Texture
@@ -129,10 +126,8 @@ namespace Examples.Tutorial
         protected override void OnUnload(EventArgs e)
         {
             GL.DeleteTextures(1, ref Texture);
-
             OperandA.Dispose();
             OperandB.Dispose();
-
             base.OnUnload(e);
         }
 
@@ -262,12 +257,6 @@ namespace Examples.Tutorial
 
         [STAThread]
         static void Main()
-        {
-            using (StencilCSG example = new StencilCSG())
-            {
-                // Utilities.SetWindowTitle(example);
-                example.Run(30.0, 0.0);
-            }
-        }
+        { using (StencilCSG example = new StencilCSG()) { example.Run(30.0, 0.0); } }
     }
 }

@@ -1,0 +1,55 @@
+The system is: Windows - 10.0.19044 - AMD64
+Compiling the CSharp compiler identification source file "CMakeCSharpCompilerId.cs" succeeded.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft (R) Build Engine versión 16.11.2+f32259642 para .NET Framework
+Copyright (C) Microsoft Corporation. Todos los derechos reservados.
+
+Compilación iniciada a las 26/11/2021 04:19:30.
+Proyecto "E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\CompilerIdCSharp.csproj" en nodo 1 (destinos predeterminados).
+PrepareForBuild:
+  Creando directorio "obj\x64\Debug\".
+CoreCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\Roslyn\csc.exe /noconfig /nowarn:1701,1702 /fullpaths /nostdlib+ /define:Platformx64;PlatformToolsetv142 /highentropyva- /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\mscorlib.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Core.dll" /debug+ /out:obj\x64\Debug\CompilerIdCSharp.exe /target:exe /utf8output /langversion:7.3 CMakeCSharpCompilerId.cs "obj\x64\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs"
+  CompilerServer: server - server processed compilation - e9fe38bb-cde1-47e5-b9a0-e70c072423b4
+CopyFilesToOutputDirectory:
+  Copiando el archivo de "E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\obj\x64\Debug\CompilerIdCSharp.exe" en "E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\CompilerIdCSharp.exe".
+  CompilerIdCSharp -> E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\CompilerIdCSharp.exe
+  Copiando el archivo de "E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\obj\x64\Debug\CompilerIdCSharp.pdb" en "E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\CompilerIdCSharp.pdb".
+PostBuildEvent:
+  if not "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\Roslyn"=="" if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\Roslyn\csc.exe" set _CSC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\Roslyn
+  if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\csc.exe" set _CSC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin
+  if "%_CSC%"=="" exit -1
+  @echo CMAKE_CSharp_COMPILER=%_CSC%\csc.exe
+  CMAKE_CSharp_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\Roslyn\csc.exe
+Compilación del proyecto terminada "E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\3.22.0-rc2\CompilerIdCSharp\CompilerIdCSharp.csproj" (destinos predeterminados).
+
+Compilación correcta.
+    0 Advertencia(s)
+    0 Errores
+
+Tiempo transcurrido 00:00:02.62
+
+
+Compilation of the CSharp compiler identification source "CMakeCSharpCompilerId.cs" produced "CompilerIdCSharp.csproj"
+
+Compilation of the CSharp compiler identification source "CMakeCSharpCompilerId.cs" produced "CompilerIdCSharp.exe"
+
+Compilation of the CSharp compiler identification source "CMakeCSharpCompilerId.cs" produced "CompilerIdCSharp.pdb"
+
+The CSharp compiler identification is Microsoft Visual Studio, found in "E:/NEWSTORE/WOW2/MyTAO/DotNetOpenTK/example5/build/CMakeFiles/3.22.0-rc2/CompilerIdCSharp/CompilerIdCSharp.exe"
+
+Determining if the C# compiler works passed with the following output:
+Change Dir: E:/NEWSTORE/WOW2/MyTAO/DotNetOpenTK/example5/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/MSBuild.exe cmTC_41daa.csproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine versión 16.11.2+f32259642 para .NET Framework
+Copyright (C) Microsoft Corporation. Todos los derechos reservados.
+
+  cmTC_41daa -> E:\NEWSTORE\WOW2\MyTAO\DotNetOpenTK\example5\build\CMakeFiles\CMakeTmp\Debug\cmTC_41daa.exe
+
+
+

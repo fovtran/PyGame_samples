@@ -4,10 +4,11 @@ include(CSharpUtilities)
 
 # The .resx and other Properties files are optional here, but including them makes them visible in the VS solution for easy editing.
 add_executable(OpenTKDemo1
-  GLControlGameLoop.cs
-  GLControlGameLoop.Designer.cs
+#  GLControlGameLoop.cs
+#  GLControlGameLoop.Designer.cs
 #  GameWindowThreaded.cs
-#  SwizzledParallax.cs
+  SwizzledParallax.cs
+#  StencilCSG.cs
   Utilities/LoaderDDS.cs
   Utilities/LoaderGDI.cs
   Utilities/LoaderStatics.cs

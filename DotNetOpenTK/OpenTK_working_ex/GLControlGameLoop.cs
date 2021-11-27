@@ -25,11 +25,7 @@ namespace Examples.WinForms
         static float angle = 0.0f;
 
         #region --- Constructor ---
-
-        public GameLoopForm()
-        {
-            InitializeComponent();
-        }
+        public GameLoopForm() { InitializeComponent(); }
         #endregion
 
         #region OnLoad
@@ -69,7 +65,6 @@ namespace Examples.WinForms
         protected override void OnClosing(CancelEventArgs e)
         {
             Application.Idle -= Application_Idle;
-
             base.OnClosing(e);
         }
         #endregion
@@ -77,10 +72,7 @@ namespace Examples.WinForms
         #region Application_Idle event
         void Application_Idle(object sender, EventArgs e)
         {
-            while (glControl.IsIdle)
-            {
-                Render();
-            }
+            while (glControl.IsIdle) { Render(); }
         }
         #endregion
 
@@ -104,7 +96,8 @@ namespace Examples.WinForms
             float aspect_ratio = Width / (float)Height;
             Matrix4 perpective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspect_ratio, 1, 64);
             GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(ref perpective);*/
+            GL.LoadMatrix(ref perpective);
+            */
         }
         #endregion
 
@@ -121,10 +114,7 @@ namespace Examples.WinForms
         #endregion
 
         #region GLControl.Paint event handler
-        void glControl_Paint(object sender, PaintEventArgs e)
-        {
-            Render();
-        }
+        void glControl_Paint(object sender, PaintEventArgs e) { Render(); }
         #endregion
 
         #region private void Render()
@@ -138,9 +128,7 @@ namespace Examples.WinForms
             angle += 0.5f;
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            DrawCube();
-
+              DrawCube();
             glControl.SwapBuffers();
         }
         #endregion
@@ -196,27 +184,20 @@ namespace Examples.WinForms
         {
             Bitmap bmp = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
             System.Drawing.Imaging.BitmapData data =
-            bmp.LockBits(this.ClientRectangle, System.Drawing.Imaging.ImageLockMode.WriteOnly,
-                System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            GL.ReadPixels(0, 0, this.ClientSize.Width, this.ClientSize.Height, PixelFormat.Bgr, PixelType.UnsignedByte,
-                data.Scan0);
+            bmp.LockBits(this.ClientRectangle, System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            GL.ReadPixels(0, 0, this.ClientSize.Width, this.ClientSize.Height, PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
             bmp.UnlockBits(data);
             bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
             return bmp;
         }
-
         #endregion
 
         #region public static void Main()
         [STAThread]
         public static void Main()
         {
-            using (GameLoopForm example = new GameLoopForm())
-            {
-                example.ShowDialog();
-            }
+            using (GameLoopForm example = new GameLoopForm()) { example.ShowDialog(); }
         }
-
         #endregion
     }
 }
