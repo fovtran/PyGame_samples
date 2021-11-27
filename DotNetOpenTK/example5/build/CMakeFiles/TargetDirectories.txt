@@ -1,3 +1,0 @@
-E:/NEWSTORE/WOW2/MyTAO/DotNetOpenTK/example5/build/CMakeFiles/OpenTKDemo1.dir
-E:/NEWSTORE/WOW2/MyTAO/DotNetOpenTK/example5/build/CMakeFiles/ALL_BUILD.dir
-E:/NEWSTORE/WOW2/MyTAO/DotNetOpenTK/example5/build/CMakeFiles/ZERO_CHECK.dir
