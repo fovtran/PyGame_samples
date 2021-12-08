@@ -1,12 +1,4 @@
-import pygame
-import OpenGL.GL as GL
-import OpenGL.GL.shaders
-from OpenGL.GL.ARB.geometry_shader4 import *
-from OpenGL.GL.EXT.geometry_shader4 import *
-#from OpenGL.GLU import *
-#from OpenGL.GLUT import *
-import ctypes
-import numpy
+from Init import *
 
 vertex_shader = """
 #version 330 core
@@ -51,71 +43,56 @@ def triangle(x,y,z):
 
 def create_object(shader):
     # Create a new VAO (Vertex Array Object) and bind it
-    vertex_array_object = GL.glGenVertexArrays(1)
-    GL.glBindVertexArray( vertex_array_object )
+    vertex_array_object = glGenVertexArrays(1)
+    glBindVertexArray( vertex_array_object )
 
     # Generate buffers to hold our vertices
-    vertex_buffer = GL.glGenBuffers(1)
-    GL.glBindBuffer(GL.GL_ARRAY_BUFFER, vertex_buffer)
+    vertex_buffer = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer)
 
     # Get the position of the 'position' in parameter of our shader and bind it.
-    position = GL.glGetAttribLocation(shader, 'position')
-    GL.glEnableVertexAttribArray(position)
+    position = glGetAttribLocation(shader, 'position')
+    glEnableVertexAttribArray(position)
 
     # Describe the position data layout in the buffer
-    GL.glVertexAttribPointer(position, 4, GL.GL_FLOAT, False, 0, ctypes.c_void_p(0))
+    glVertexAttribPointer(position, 4, GL_FLOAT, False, 0, ctypes.c_void_p(0))
 
     #vertices = triangle(0.6, 0.6, -1.0)
     vertices = square(0.06, 0.06, 0.0)
 
     # Send the data over to the buffer
-    print(GL.GL_FLOAT)
-    GL.glBufferData(GL.GL_ARRAY_BUFFER, GL.GL_FLOAT*6, vertices, GL.GL_STATIC_DRAW)
+    print(GL_FLOAT)
+    glBufferData(GL_ARRAY_BUFFER, GL_FLOAT*6, vertices, GL_STATIC_DRAW)
 
     # Unbind the VAO first (Important)
-    GL.glBindVertexArray( 0 )
+    glBindVertexArray( 0 )
 
     # Unbind other stuff
-    GL.glDisableVertexAttribArray(position)
-    GL.glBindBuffer(GL.GL_ARRAY_BUFFER, 0)
+    glDisableVertexAttribArray(position)
+    glBindBuffer(GL_ARRAY_BUFFER, 0)
     return vertex_array_object
 
 def display(shader, vertex_array_object):
-    GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-    GL.glUseProgram(shader)
-    GL.glBindVertexArray( vertex_array_object )
-    GL.glDrawArrays(GL.GL_POINTS, 0, 6)
-    GL.glDrawArrays(GL.GL_LINES, 0, 6)
-    GL.glBindVertexArray( 0 )
-    GL.glUseProgram(0)
+    glUseProgram(shader)
+    glBindVertexArray( vertex_array_object )
+    glDrawArrays(GL_POINTS, 0, 6)
+    glDrawArrays(GL_LINES, 0, 6)
+    glBindVertexArray( 0 )
+    glUseProgram(0)
 
 def main():
-    pygame.init()
-    pygame.display.set_caption('Box Test')
-    screen = pygame.display.set_mode((512, 512), pygame.OPENGL|pygame.DOUBLEBUF)
+    screen = GameInit()
+
     font = pygame.font.SysFont('Arial', 25)
     screen.fill((255,255,255))
     screen.blit(font.render('Hello!', True, (255,0,0)), (200, 100))
     #pygame.display.update()
 
-    GL.glEnable(GL.GL_DEPTH_TEST)
-    GL.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST)
-    GL.glEnable(GL.GL_POINT_SMOOTH)
-    GL.glEnable(GL.GL_LINE_SMOOTH)
-    #GL.glEnable(GL.GL_BLEND)
-    #GL.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA)
-    # - It is also possible to set different options for the RGB and alpha channel individually using glBlendFuncSeparate:
-    # glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
-
-    GL.glClearColor(0.0, 0.0, 0.1, 1.0)
-    GL.glMatrixMode(GL.GL_PROJECTION)
-    GL.glLoadIdentity()
-    GL.glMatrixMode(GL.GL_MODELVIEW)
-
     shader = OpenGL.GL.shaders.compileProgram(
-        OpenGL.GL.shaders.compileShader(vertex_shader, GL.GL_VERTEX_SHADER),
-        OpenGL.GL.shaders.compileShader(fragment_shader, GL.GL_FRAGMENT_SHADER)
+        OpenGL.GL.shaders.compileShader(vertex_shader, GL_VERTEX_SHADER),
+        OpenGL.GL.shaders.compileShader(fragment_shader, GL_FRAGMENT_SHADER)
     )
 
     vertex_array_object = create_object(shader)

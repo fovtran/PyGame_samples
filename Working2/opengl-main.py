@@ -1,8 +1,4 @@
-import OpenGL.GL as GL
-import OpenGL.GL.shaders
-import ctypes
-import pygame
-import numpy
+from Init import *
 
 vertex_shader = """
 #version 330
@@ -31,54 +27,48 @@ vertices = numpy.array(vertices, dtype=numpy.float32)
 
 def create_object(shader):
     # Create a new VAO (Vertex Array Object) and bind it
-    vertex_array_object = GL.glGenVertexArrays(1)
-    GL.glBindVertexArray( vertex_array_object )
+    vertex_array_object = glGenVertexArrays(1)
+    glBindVertexArray( vertex_array_object )
 
     # Generate buffers to hold our vertices
-    vertex_buffer = GL.glGenBuffers(1)
-    GL.glBindBuffer(GL.GL_ARRAY_BUFFER, vertex_buffer)
+    vertex_buffer = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer)
 
     # Get the position of the 'position' in parameter of our shader and bind it.
-    position = GL.glGetAttribLocation(shader, 'position')
-    GL.glEnableVertexAttribArray(position)
+    position = glGetAttribLocation(shader, 'position')
+    glEnableVertexAttribArray(position)
 
     # Describe the position data layout in the buffer
-    GL.glVertexAttribPointer(position, 4, GL.GL_FLOAT, False, 0, ctypes.c_void_p(0))
+    glVertexAttribPointer(position, 4, GL_FLOAT, False, 0, ctypes.c_void_p(0))
 
     # Send the data over to the buffer
-    GL.glBufferData(GL.GL_ARRAY_BUFFER, 48, vertices, GL.GL_STATIC_DRAW)
+    glBufferData(GL_ARRAY_BUFFER, 48, vertices, GL_STATIC_DRAW)
 
     # Unbind the VAO first (Important)
-    GL.glBindVertexArray( 0 )
+    glBindVertexArray( 0 )
 
     # Unbind other stuff
-    GL.glDisableVertexAttribArray(position)
-    GL.glBindBuffer(GL.GL_ARRAY_BUFFER, 0)
+    glDisableVertexAttribArray(position)
+    glBindBuffer(GL_ARRAY_BUFFER, 0)
 
     return vertex_array_object
 
 def display(shader, vertex_array_object):
-    GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
-    GL.glUseProgram(shader)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glUseProgram(shader)
 
-    GL.glBindVertexArray( vertex_array_object )
-    GL.glDrawArrays(GL.GL_TRIANGLES, 0, 3)
-    GL.glBindVertexArray( 0 )
+    glBindVertexArray( vertex_array_object )
+    glDrawArrays(GL_TRIANGLES, 0, 3)
+    glBindVertexArray( 0 )
 
-    GL.glUseProgram(0)
+    glUseProgram(0)
 
 def main():
-    pygame.init()
-    screen = pygame.display.set_mode((512, 512), pygame.OPENGL|pygame.DOUBLEBUF)
-    GL.glClearColor(0.5, 0.5, 0.5, 1.0)
-    GL.glEnable(GL.GL_DEPTH_TEST)
-    GL.glMatrixMode(GL.GL_PROJECTION)
-    GL.glLoadIdentity()
-    GL.glMatrixMode(GL.GL_MODELVIEW)
+    screen = GameInit()
 
     shader = OpenGL.GL.shaders.compileProgram(
-        OpenGL.GL.shaders.compileShader(vertex_shader, GL.GL_VERTEX_SHADER),
-        OpenGL.GL.shaders.compileShader(fragment_shader, GL.GL_FRAGMENT_SHADER)
+        OpenGL.GL.shaders.compileShader(vertex_shader, GL_VERTEX_SHADER),
+        OpenGL.GL.shaders.compileShader(fragment_shader, GL_FRAGMENT_SHADER)
     )
 
     vertex_array_object = create_object(shader)

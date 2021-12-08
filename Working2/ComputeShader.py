@@ -1,14 +1,8 @@
-import OpenGL
-from OpenGL.GL import *
-from OpenGL.GL import shaders
-from OpenGL.GLU import *
-import pygame
-from pygame.locals import *
-import numpy as np
+from Init import *
 
 compute_shader_code = """
-#version 320
-layout(local_size_x = 1, local_size_y = 1) in;
+#version 330
+layout(local_size_x = 16, local_size_y = 16) in;
 out vec4 Data[];
 
 void main(){
@@ -20,11 +14,7 @@ void main(){
 """
 
 def setup():
-    pygame.init()
-    window_width = 1000
-    window_height = 800
-    display = (window_width, window_height)
-    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+    screen = GameInit()
     print(glGetString(GL_VERSION))
     runner()
 
@@ -32,19 +22,19 @@ def setup():
     quit()
 
 def runner():
-    work_grp_size=[16,-1,-1];
-    #glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, work_grp_size[0]);
-    #glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, work_grp_size[1]);
-    #glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, work_grp_size[2]);
-    print(glGetInteger(GL_MAX_RENDERBUFFER_SIZE,1))
+    work_grp_size=np.array([0,0,0], dtype=np.int32)
+    # glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, work_grp_size[0])
+    # glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, work_grp_size[1])
+    # glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, work_grp_size[2])
+    print("GL_MAX_RENDERBUFFER_SIZE ", glGetInteger(GL_MAX_RENDERBUFFER_SIZE,1))
+    print("GL_MAX_UNIFORM_BUFFER_BINDINGS ", glGetInteger(GL_MAX_UNIFORM_BUFFER_BINDINGS,1))
     #print(glGetInteger(GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS,1))
-    #print(glGetIntegerv(GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS,1))
-    print(glGetInteger(GL_MAX_UNIFORM_BUFFER_BINDINGS,1))
-    #print("max local (in one shader) work group sizes x:{0} y:{0} z:{0}", \
-    #    work_grp_size[0], work_grp_size[1], work_grp_size[2]);
+    #print(glGetIntegeri_v(GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS,0))
+    print("max local (in one shader) work group sizes x:{0} y:{0} z:{0}", work_grp_size[0], work_grp_size[1], work_grp_size[2]);
+
     print("Creating shader program")
-    shader_program = -1
-    ray_shader = -1
+    shader_program = 1
+    ray_shader = 1
     shader_program = glCreateShader(GL_VERTEX_SHADER)
     glShaderSource(shader_program, compute_shader_code)
     glCompileShader(shader_program)
@@ -61,14 +51,20 @@ def runner():
 
         print("Binding buffers")
         glUseProgram(ray_shader)
+
         glGenBuffers(0, ssbo)
         #glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo)
         #glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo)
         #glBufferData(GL_SHADER_STORAGE_BUFFER, np.ascontiguousarray(buffer_data, dtype=np.float32), GL_DYNAMIC_READ)
 
         print("Calling compute")
-        glDispatchCompute(0)
-        glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT)
+        if bool(glDispatchCompute):
+            print("Calling compute OK")
+            glDispatchCompute(0)
+
+        if bool(glMemoryBarrier):
+            print("Memory barrier OK")
+            glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT)
 
         block_index = glGetProgramResourceIndex(ray_shader, GL_SHADER_STORAGE_BLOCK, "data", 0)
         if block_index != GL_INVALID_INDEX:

@@ -1,16 +1,7 @@
-import OpenGL
-from OpenGL.GL import *
-from OpenGL.GL import shaders
-from OpenGL.GLU import *
-import pygame
-from pygame.locals import *
-import numpy as np
+from Init import *
 
-pygame.init()
-window_width = 1000
-window_height = 800
-display = (window_width, window_height)
-pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+screen = GameInit()
+
 print(glGetString(GL_VERSION))
 print(glGetString(GL_EXTENSIONS))
 
@@ -48,9 +39,9 @@ print(  glGetIntegerv(GL_MIN_PROGRAM_TEXEL_OFFSET, 1))
 print(  glGetIntegerv(GL_NUM_EXTENSIONS, 1))
 print(  glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, 1))
 print(  glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT,1))
-print(  glGetIntegerv(GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS, 1))
 print(  glGetIntegerv(GL_MAX_SAMPLES, 1))
 
+#print(  glGetIntegerv(GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS, 1))
 #print(  glGetIntegerv(GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS, 1))
 #print(  glGetIntegerv(GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT, 1))
 #print(  glGetInteger64v(GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS,1))
