@@ -43,6 +43,8 @@ set(CMAKE_CSharp_FLAGS "/langversion:latest")
 # csharp_set_xaml_cs_properties()
 # csharp_set_designer_cs_properties()
 
+file(COPY Data DESTINATION Debug/)
+
 # If necessary, link in other library dependencies that were built locally in this source tree.
 target_link_libraries(OpenTKDemo1 MyLocalLib)
 set_property(TARGET OpenTKDemo1 PROPERTY VS_DOTNET_REFERENCE_OpenTK ./packages/OpenTK.3.3.2/lib/net20/opentk.dll)

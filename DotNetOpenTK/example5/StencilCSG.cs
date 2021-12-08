@@ -156,6 +156,6 @@ namespace Examples.Tutorial
 
         [STAThread]
         static void Main()
-        { using (StencilCSG example = new StencilCSG()) { example.Run(30.0, 0.0); } }
+        { using (StencilCSG example = new StencilCSG()) { example.Run(30.0, 30.0); } }
     }
 }
