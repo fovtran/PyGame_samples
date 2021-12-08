@@ -1,43 +1,15 @@
 # -*- coding: utf-8 -*-
-import sys, time
-import pygame
-from pygame.locals import *
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL.GLUT import *
-from OpenGL.GL.shaders import *
-from ctypes import *
-import numpy as np
-import glm
-import random
-import array
+from AllImports import *
 
 from VBO_Primitives import *
 from IMAGE_Primitives import *
-
-def getTexture(fileName):
-	img = pygame.image.load(fileName)
-	#img = Image.open(filename)
-	#img_data = numpy.array(list(img.getdata()), numpy.int8)
-	rawTextureData = pygame.image.tostring(img, "RGB", 1)
-	width = img.get_width()
-	height = img.get_height()
-
-	try:
-		texture = FileTexture( fileName )
-	except:
-		print ('could not open ', fileName, '; using random texture')
-		#texture = RandomTexture( 256, 256 )
-		texture = rawTextureData
-
-	return texture, width, height
 
 def getShader():
 	shaderProgram = glCreateProgram()
 
 	try:
-		vertexShader = compileShader(getFileContent("vertex.vert"), GL_VERTEX_SHADER) # TODO: RESUMIR
-		fragmentShader = compileShader(getFileContent("vertex.frag"), GL_FRAGMENT_SHADER)
+		vertexShader = compileShader(getFileContent("shaders\\vertex.vert"), GL_VERTEX_SHADER) # TODO: RESUMIR
+		fragmentShader = compileShader(getFileContent("shaders\\vertex.frag"), GL_FRAGMENT_SHADER)
 		glAttachShader(shaderProgram, vertexShader)
 		glAttachShader(shaderProgram, fragmentShader)
 		glLinkProgram(shaderProgram)
@@ -46,7 +18,6 @@ def getShader():
 		print(e.args[0])
 		for a in str(e.args[1]).split(r'\n'):
 			print(a)
-			pass
 
 	return shaderProgram # Devuelve shader zero. corregir.
 
@@ -69,27 +40,6 @@ def BindTexture(texture, width, height):
 	glTexImage2D( GL_TEXTURE_2D, 0, 3, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture ) #INVESTIGAR
 	#glGenerateMipmap(GL_TEXTURE_2D)
 
-def VertexAttributes(shaderProgram):
-	vertices = [-0.5, -0.5,
-	            -0.5, 0.5,
-	            0.5, 0.5,
-	            0.5, -0.5]
-
-	texcoords = [0.0, 0.0,
-	             0.0, 1.0,
-	             1.0, 1.0,
-	             1.0, 0.0]
-
-	vertices = np.array(vertices, dtype=np.float32)
-	texcoords = np.array(texcoords, dtype=np.float32)
-
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, vertices)
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, texcoords)
-	glEnableVertexAttribArray(0)
-	glEnableVertexAttribArray(1)
-
 def getTextureLoc(shaderProgram, x):
 	glUseProgram(shaderProgram)
-	texloc = glGetUniformLocation(shaderProgram, x)
-	print(texloc)
-	return texloc
+	return glGetUniformLocation(shaderProgram, x)

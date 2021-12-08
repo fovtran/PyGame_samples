@@ -1,19 +1,28 @@
 # -*- coding: utf-8 -*-
-import sys, time
-import pygame
-from pygame.locals import *
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL.GLUT import *
-from OpenGL.GL.shaders import *
-from ctypes import *
-import numpy as np
-import glm
-import random
-import array
+from AllImports import *
 
 from SHADER_Primitives import *
 from VBO_Primitives import *
+
+class image:
+    img = ""
+    width = 0
+    height = 0
+
+def getTexture(fileName):
+    #img = Image.open(filename)
+    #img_data = numpy.array(list(img.getdata()), numpy.int8)
+    _img = image()
+
+    try:
+        img = pygame.image.load(fileName)
+        _img.image = rawTextureData = pygame.image.tostring(img, "RGB", 1)
+        _img.width = img.get_width()
+        _img.height = img.get_height()
+    except:
+        print ('could not open ', fileName, '; using random texture')
+        #texture = RandomTexture( 256, 256 )
+    return _img
 
 class Texture( object ):
         """Texture either loaded from a file or initialised with random colors."""
