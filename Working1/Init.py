@@ -56,9 +56,11 @@ def init():
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
+	pygame.display.update()
+	return screen
 
 def pygame_init():
-	SetScreen()
+	screen = SetScreen()
 	SetLights()
 
 	glEnable(GL_DEPTH_TEST)
@@ -81,4 +83,5 @@ def pygame_init():
 
 	glClearColor(.05, .05, .05, 1.0)
 	glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE)
+	pygame.display.update()
 	return screen

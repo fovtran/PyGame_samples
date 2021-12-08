@@ -1,3 +1,4 @@
+import pygame
 import OpenGL.GL as GL
 import OpenGL.GL.shaders
 from OpenGL.GL.ARB.geometry_shader4 import *
@@ -5,7 +6,6 @@ from OpenGL.GL.EXT.geometry_shader4 import *
 #from OpenGL.GLU import *
 #from OpenGL.GLUT import *
 import ctypes
-import pygame
 import numpy
 
 vertex_shader = """
@@ -92,7 +92,13 @@ def display(shader, vertex_array_object):
 
 def main():
     pygame.init()
+    pygame.display.set_caption('Box Test')
     screen = pygame.display.set_mode((512, 512), pygame.OPENGL|pygame.DOUBLEBUF)
+    font = pygame.font.SysFont('Arial', 25)
+    screen.fill((255,255,255))
+    screen.blit(font.render('Hello!', True, (255,0,0)), (200, 100))
+    #pygame.display.update()
+
     GL.glEnable(GL.GL_DEPTH_TEST)
     GL.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST)
     GL.glEnable(GL.GL_POINT_SMOOTH)
@@ -124,6 +130,7 @@ def main():
                 return
 
         display(shader, vertex_array_object)
+
         pygame.display.flip()
 
 if __name__ == '__main__':

@@ -75,7 +75,7 @@ class TestContext(BaseContext):
     def Render(self, mode=0):
         BaseContext.Render(self, mode)
         glUseProgram(self.shader)
-        
+
         # where we actually pass in values to the fog uniform values
         # switched my fog to 0000 from 1111 black to make it blend in
         # with background
