@@ -17,4 +17,4 @@ print( 'Successfully loaded collada file.')
 print ('There were %d errors' % len(col.errors))
 
 for e in col.errors:
-    print e
+    print( e)

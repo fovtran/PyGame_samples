@@ -4,3 +4,4 @@ PyOpenGL==3.1.5
 # PyOpenGL-accelerate==3.1.5
 # OpenGLContext==2.2.0a3
 glfw==2.4.0
+pycollada==0.7.2

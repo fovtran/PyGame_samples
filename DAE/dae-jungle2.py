@@ -1,3 +1,11 @@
+# Creating A Collada Object
+from collada import *
+mesh = Collada()
+effect = material.Effect("effect0", [], "phong", diffuse=(1,0,0), specular=(0,1,0))
+mat = material.Material("material0", "mymaterial", effect)
+mesh.effects.append(effect)
+mesh.materials.append(mat)
+
 #Allows the laminate to get exported as a DAE.
 def toDAE(self):
     """
@@ -48,7 +56,7 @@ def createDAEFromShape(self, s, layer_num, mesh, thickness): #TODO Move this met
     triset.generateNormals()
     geom.primitives.append(triset)
     return geom
-    
+
 #Allows the laminate to get exported as a DAE.
 def toDAE(self):
     """
