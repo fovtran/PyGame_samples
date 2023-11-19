@@ -14,8 +14,8 @@ void main(){
 """
 
 def setup():
-    screen = GameInit()
-    print(glGetString(GL_VERSION))
+    screen = pygame_init()
+    # not work glgetstring -> print(glGetString(GL_VERSION))
     runner()
 
     pygame.quit()

@@ -8,8 +8,8 @@ def getShader():
 	shaderProgram = glCreateProgram()
 
 	try:
-		vertexShader = compileShader(getFileContent("shaders\\vertex.vert"), GL_VERTEX_SHADER) # TODO: RESUMIR
-		fragmentShader = compileShader(getFileContent("shaders\\vertex.frag"), GL_FRAGMENT_SHADER)
+		vertexShader = compileShader(getFileContent("shaders/vertex.vert"), GL_VERTEX_SHADER) # TODO: RESUMIR
+		fragmentShader = compileShader(getFileContent("shaders/vertex.frag"), GL_FRAGMENT_SHADER)
 		glAttachShader(shaderProgram, vertexShader)
 		glAttachShader(shaderProgram, fragmentShader)
 		glLinkProgram(shaderProgram)

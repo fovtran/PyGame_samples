@@ -23,7 +23,7 @@ vertices = [ 0.6,  0.6, 0.0, 1.0,
             -0.6,  0.6, 0.0, 1.0,
              0.0, -0.6, 0.0, 1.0]
 
-vertices = numpy.array(vertices, dtype=numpy.float32)
+vertices = np.array(vertices, dtype=np.float32)
 
 def create_object(shader):
     # Create a new VAO (Vertex Array Object) and bind it
@@ -64,7 +64,7 @@ def display(shader, vertex_array_object):
     glUseProgram(0)
 
 def main():
-    screen = GameInit()
+    screen = pygame_init()
 
     shader = OpenGL.GL.shaders.compileProgram(
         OpenGL.GL.shaders.compileShader(vertex_shader, GL_VERTEX_SHADER),

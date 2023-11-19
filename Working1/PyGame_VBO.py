@@ -12,7 +12,7 @@ def main():
 	print(os.getcwd())
 	global shaderProgram
 	shaderProgram = getShader() # Shaderprogram es always zero. corregir
-	f = "Media\\checkers12.jpg"
+	f = "media/checkers12.jpg"
 	_img = getTexture(f)
 	clock = pygame.time.Clock()
 

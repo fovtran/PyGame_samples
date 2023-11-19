@@ -30,7 +30,7 @@ def square(x,y,z):
                 -x, y, z, 1.0
                  ]
 
-    vertices = numpy.array(vertices, dtype=numpy.float32) # VBO takes float32. just in case
+    vertices = np.array(vertices, dtype=np.float32) # VBO takes float32. just in case
     return vertices
 
 def triangle(x,y,z):
@@ -38,7 +38,7 @@ def triangle(x,y,z):
                 -x,  y, z, 1.0,
                  x, -y, z, 1.0]
 
-    vertices = numpy.array(vertices, dtype=numpy.float32) # VBO takes float32. just in case
+    vertices = np.array(vertices, dtype=np.float32) # VBO takes float32. just in case
     return vertices
 
 def create_object(shader):
@@ -83,7 +83,7 @@ def display(shader, vertex_array_object):
     glUseProgram(0)
 
 def main():
-    screen = GameInit()
+    screen = pygame_init()
 
     font = pygame.font.SysFont('Arial', 25)
     screen.fill((255,255,255))

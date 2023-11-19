@@ -1,6 +1,6 @@
 from Init import *
 
-screen = GameInit()
+screen = pygame_init()
 
 print(glGetString(GL_VERSION))
 print(glGetString(GL_EXTENSIONS))
