@@ -1,6 +1,7 @@
 from Init import *
 
 screen = pygame_init()
+other = True
 
 print(glGetString(GL_VERSION))
 print(glGetString(GL_EXTENSIONS))
@@ -41,13 +42,14 @@ print(  glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, 1))
 print(  glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT,1))
 print(  glGetIntegerv(GL_MAX_SAMPLES, 1))
 
-#print(  glGetIntegerv(GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS, 1))
-#print(  glGetIntegerv(GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS, 1))
-#print(  glGetIntegerv(GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT, 1))
-#print(  glGetInteger64v(GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS,1))
-#print(  glGetInteger64v(GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS,1))
-#print(  glGetInteger64v(GL_MAX_ELEMENT_INDEX, 1))
-#print(  glGetInteger64v(GL_MAX_SERVER_WAIT_TIMEOUT, 1))
-#print(  glGetInteger64v(GL_MAX_UNIFORM_BLOCK_SIZE, 0))
+if other:
+    print(  glGetIntegerv(GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS, 1))
+    print(  glGetIntegerv(GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS, 1))
+    print(  glGetIntegerv(GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT, 1))
+    # print(  glGetInteger64v(GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS,1))
+    # print(  glGetInteger64v(GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS,1))
+    # print(  glGetInteger64v(GL_MAX_ELEMENT_INDEX, 1))
+    # print(  glGetInteger64v(GL_MAX_SERVER_WAIT_TIMEOUT, 1))
+    # print(  glGetInteger64v(GL_MAX_UNIFORM_BLOCK_SIZE, 0))
 
 pygame.quit()

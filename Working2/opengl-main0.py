@@ -17,7 +17,7 @@ fragment_shader = """
 void main()
 {
     // 1- FragColor = texture(texture1, TexCoords);
-    gl_FragColor = vec4(1.0f, 1.0f, 0.0f, 0.3f);
+    gl_FragColor = vec4(1.0f, 1.0f, 0.0f, 0.7f);
 }
 """
 
@@ -61,13 +61,10 @@ def create_object(shader):
     vertices = square(0.06, 0.06, 0.0)
 
     # Send the data over to the buffer
-    print(GL_FLOAT)
     glBufferData(GL_ARRAY_BUFFER, GL_FLOAT*6, vertices, GL_STATIC_DRAW)
 
-    # Unbind the VAO first (Important)
+    # Unbind the VAO first (Important) and other
     glBindVertexArray( 0 )
-
-    # Unbind other stuff
     glDisableVertexAttribArray(position)
     glBindBuffer(GL_ARRAY_BUFFER, 0)
     return vertex_array_object
@@ -77,11 +74,18 @@ def display(shader, vertex_array_object):
 
     glUseProgram(shader)
     glBindVertexArray( vertex_array_object )
-    glDrawArrays(GL_POINTS, 0, 6)
     glDrawArrays(GL_LINES, 0, 6)
+    glDrawArrays(GL_POINTS, 0, 6)
     glBindVertexArray( 0 )
     glUseProgram(0)
 
+def Controls():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return
+        if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+            return
+        
 def main():
     screen = pygame_init()
 
@@ -100,15 +104,11 @@ def main():
     clock = pygame.time.Clock()
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
-            if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-                return
-
+        Controls()
         display(shader, vertex_array_object)
 
         pygame.display.flip()
+        pygame.time.wait(25)
 
 if __name__ == '__main__':
     try:

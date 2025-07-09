@@ -44,10 +44,8 @@ def create_object(shader):
     # Send the data over to the buffer
     glBufferData(GL_ARRAY_BUFFER, 48, vertices, GL_STATIC_DRAW)
 
-    # Unbind the VAO first (Important)
+    # Unbind the VAO first (Important), and unbind other stuff
     glBindVertexArray( 0 )
-
-    # Unbind other stuff
     glDisableVertexAttribArray(position)
     glBindBuffer(GL_ARRAY_BUFFER, 0)
 
@@ -63,6 +61,13 @@ def display(shader, vertex_array_object):
 
     glUseProgram(0)
 
+def Controls():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return
+        if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+            return
+        
 def main():
     screen = pygame_init()
 
@@ -74,16 +79,12 @@ def main():
     vertex_array_object = create_object(shader)
 
     clock = pygame.time.Clock()
-
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
-            if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-                return
-
         display(shader, vertex_array_object)
+        clock = pygame.time.get_ticks()
         pygame.display.flip()
+        Controls()
+        pygame.time.wait(25)
 
 if __name__ == '__main__':
     try:

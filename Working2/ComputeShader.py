@@ -1,15 +1,25 @@
 from Init import *
 
 compute_shader_code = """
-#version 330
-layout(local_size_x = 16, local_size_y = 16) in;
+#version 440
+#extension GL_ARB_compute_shader : enable
+#extension GL_ARB_shader_image_load_store : enable
+
+layout (rgba16, binding=0) uniform image2D sourceTex;           //Textures bound to 0 and 1 resp. that are used to
+layout (rgba16, binding=1) uniform image2D targetTex;           //acquire texture and save changes made to texture
+
+// layout (local_size_x = 16, local_size_y = 16) in;
 out vec4 Data[];
+vec3 pxlPos;
 
 void main(){
+    vec4 result;
     Data[0].x = 1;
     Data[0].y = 2;
     Data[0].z = 3;
     Data[0].w = 4;
+    pxlPos = ivec2(gl_GlobalInvocationID.xz);     //Get pxl-pos
+    imageStore(targetTex, pxlPos, vec4(1.0f));    //Write white to texture
 }
 """
 
@@ -60,7 +70,8 @@ def runner():
         print("Calling compute")
         if bool(glDispatchCompute):
             print("Calling compute OK")
-            glDispatchCompute(0)
+            # https://registry.khronos.org/OpenGL-Refpages/gl4/html/glDispatchCompute.xhtml
+            #glDispatchCompute(1, 1, 1)
 
         if bool(glMemoryBarrier):
             print("Memory barrier OK")

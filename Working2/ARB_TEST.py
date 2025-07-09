@@ -14,7 +14,7 @@ from math import sin, cos
 shader = None
 USE_POINTS = False
 
-def display(clock):
+def display(clock, shader):
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     t = clock
@@ -109,7 +109,7 @@ void main(void)
 
  for(x=-1; x<=1; x+=1) {
    for(y=-1; y<=1; y+=1) {
-    StartPrimitive();
+    //StartPrimitive(); // FIX FIX FIX
      gl_Position = gl_PositionIn[0];
      gl_Position.x += x * distance;
      gl_Position.y += y * distance;
@@ -125,7 +125,7 @@ void main(void)
      gl_Position = gl_ModelViewProjectionMatrix * gl_Position;
      frag_color = geom_color[0];
      EmitVertex();
-     EndPrimitive();
+     //EndPrimitive();
    }
  }
 }
@@ -152,13 +152,16 @@ print (glGetProgramInfoLog(shader))
 
 clock = pygame.time.Clock()
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            exit()
-        if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-            exit()
+def Controls():
+  for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+          exit()
+      if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+          exit()
 
+while True:
+    Controls()
     clock = pygame.time.get_ticks()
-    display(clock)
+    display(clock, shader)
     pygame.display.flip()
+    pygame.time.wait(25)
