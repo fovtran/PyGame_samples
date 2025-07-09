@@ -9,21 +9,6 @@ class image:
     width = 0
     height = 0
 
-def getTexture(fileName):
-    #img = Image.open(filename)
-    #img_data = numpy.array(list(img.getdata()), numpy.int8)
-    _img = image()
-
-    try:
-        img = pygame.image.load(fileName)
-        _img.image = rawTextureData = pygame.image.tostring(img, "RGB", 1)
-        _img.width = img.get_width()
-        _img.height = img.get_height()
-    except:
-        print ('could not open ', fileName, '; using random texture')
-        #texture = RandomTexture( 256, 256 )
-    return _img
-
 class Texture( object ):
         """Texture either loaded from a file or initialised with random colors."""
         def __init__( self ):
@@ -47,6 +32,8 @@ class FileTexture( Texture ):
                 self.ySize = im.size[1]
                 self.rawReference = im.tostring("raw", "RGB", 0, -1)
 
-def getFileContent(file):
-	content = open(file, 'r').read()
-	return content
+class MonkeyWatcher(object):
+	def __init__(self):
+		self._cached_stamp = 0
+
+

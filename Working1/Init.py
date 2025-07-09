@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from AllImports import *
 
-w = 1200
-h = 600
-FPS = 10
+w = 0
+h = 0
+FPS = 20
 
-def SetScreen():
+def SetScreen(w, h):
 	global screen
 	pygame.init ()
 	pygame.font.init()
@@ -25,42 +25,8 @@ def SetLights():
 	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05)
 	glEnable(GL_LIGHT0)
 
-def init():
-	screen = SetScreen()
-	SetLights()
-
-	glDisable(GL_DEPTH_TEST)
-	glDisable(GL_CULL_FACE)
-
-	glEnable(GL_COLOR_MATERIAL)
-	glEnable( GL_TEXTURE_2D )
-	glEnable(GL_MULTISAMPLE)
-	#glEnable(GL_NORMALIZE)
-	glEnable(GL_POINT_SMOOTH)
-	glEnable(GL_LINE_SMOOTH)
-	glEnable(GL_POLYGON_SMOOTH)
-	glEnable(GL_POLYGON_OFFSET_FILL)
-	#glEnable(GL_BLEND);
-	#glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-	glShadeModel( GL_SMOOTH )
-
-	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
-	glLineWidth(1.0)
-
-	glMatrixMode(GL_PROJECTION)
-	glLoadIdentity()
-	gluPerspective(95, float(w) / h, .000001, 275)
-	gluLookAt(-2, 2, -4, 0, 0, 0, 0, 1, 0)
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-	glMatrixMode(GL_MODELVIEW)
-	glLoadIdentity()
-	# nope -> pygame.display.update()
-	return screen
-
-def pygame_init():
-	screen = SetScreen()
+def pygame_init(w=1200, h=600):
+	screen = SetScreen(w, h)
 	SetLights()
 
 	glEnable(GL_DEPTH_TEST)
@@ -69,7 +35,7 @@ def pygame_init():
 	glEnable(GL_COLOR_MATERIAL)
 	glEnable( GL_TEXTURE_2D )
 	glDisable(GL_MULTISAMPLE)
-	#glEnable(GL_NORMALIZE)
+	glEnable(GL_NORMALIZE)
 	glEnable(GL_POINT_SMOOTH)
 	glEnable(GL_LINE_SMOOTH)
 	glEnable(GL_POLYGON_SMOOTH)
@@ -78,10 +44,12 @@ def pygame_init():
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 	glShadeModel( GL_SMOOTH )
 
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+	glLineWidth(1.0)
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
 
-	glClearColor(.05, .05, .05, 1.0)
+	glClearColor(.05, .2, .05, 1.0)
 	glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE)
 	# nope -> pygame.display.update()
 	return screen

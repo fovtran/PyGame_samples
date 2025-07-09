@@ -8,8 +8,7 @@ def Scene1():
 	VBO(1)
 
 def main():
-	init()
-	print(os.getcwd())
+	pygame_init()
 	global shaderProgram
 	shaderProgram = getShader() # Shaderprogram es always zero. corregir
 	f = "media/checkers12.jpg"
