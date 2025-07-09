@@ -1,0 +1,2 @@
+* pip install pyopenglcontext simply fails on windows.
+* modern_glfw_triangle # GLFW DOES NOT WORK

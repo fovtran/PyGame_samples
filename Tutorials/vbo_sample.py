@@ -183,7 +183,7 @@ class Triangle:
 
 
 def main():
-    #glutInit()
+    glutInit() # Only windows. FIX
     glutInitContextVersion(3, 3) # this call cause an error when glVertexAttribPointer
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
     glutInitContextFlags(GLUT_CORE_PROFILE | GLUT_DEBUG)

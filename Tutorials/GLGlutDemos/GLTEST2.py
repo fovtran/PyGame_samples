@@ -1,9 +1,6 @@
 import sys, time
 import math as m
 import numpy as np
-import scipy as sc
-import sympy as sy
-
 import OpenGL
 from OpenGL.GL import *
 from OpenGL.GLU import *

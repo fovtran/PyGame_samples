@@ -1,7 +1,6 @@
 #make sure to compile pybullet with PYBULLET_USE_NUMPY enabled
 #otherwise use testrender.py (slower but compatible without numpy)
 #you can also use GUI mode, for faster OpenGL rendering (instead of TinyRender CPU)
-
 import os
 import sys
 import time
