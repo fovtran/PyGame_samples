@@ -11,6 +11,6 @@ import glm
 import random
 import array
 
-from SHADER_Primitives import *
-from VBO_Primitives import *
-from IMAGE_Primitives import *
+from GITCLONE.PyGame_samples.Working1.ShaderPrimitives import *
+from GITCLONE.PyGame_samples.Working1.VertexBufferPrimitives import *
+from GITCLONE.PyGame_samples.Working1.ImagePrimitives import *

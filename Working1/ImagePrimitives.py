@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from AllImports import *
 
-from SHADER_Primitives import *
-from VBO_Primitives import *
+from GITCLONE.PyGame_samples.Working1.ShaderPrimitives import *
+from GITCLONE.PyGame_samples.Working1.VertexBufferPrimitives import *
 
 class image:
     img = ""

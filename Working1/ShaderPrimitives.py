@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from AllImports import *
 
-from VBO_Primitives import *
-from IMAGE_Primitives import *
+from GITCLONE.PyGame_samples.Working1.VertexBufferPrimitives import *
+from GITCLONE.PyGame_samples.Working1.ImagePrimitives import *
 
 def BindTexture(texture, width, height):
 	Tx = glGenTextures(1)
